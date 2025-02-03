@@ -1,0 +1,10 @@
+[environment]
+extra_packages = ["caddy"]
+
+[build]
+# Install dependencies and build the project.
+command = "yarn install && yarn build"
+
+[run]
+# Start Caddy using the provided Caddyfile to serve the dist folder.
+command = "caddy run --config /app/Caddyfile --adapter caddyfile"
