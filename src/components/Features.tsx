@@ -12,6 +12,9 @@ const FeatureCard = styled(Card)(({ theme }) => ({
 }));
 
 const Features: React.FC = () => {
+	const defaultTitleHeight = 72;
+	const defaultBodyHeight = 84;
+
 	return (
 		<Section id="features">
 			<Typography variant="h3" component="h2" gutterBottom>
@@ -24,10 +27,10 @@ const Features: React.FC = () => {
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: 64, mb: 2 }}>
+							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
 								Interactive Interface
 							</Typography>
-							<Typography variant="body2" sx={{ height: 48 }}>
+							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
 								Engage with an AI assistant via a dynamic CLI and FastAPI web interface, making it easy to execute commands.
 							</Typography>
 						</CardContent>
@@ -36,10 +39,10 @@ const Features: React.FC = () => {
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: 64, mb: 2 }}>
+							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
 								Intelligent & Safe Execution
 							</Typography>
-							<Typography variant="body2" sx={{ height: 48 }}>
+							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
 								Execute multi-step tasks with self-correction and integrated safety checks to ensure secure operations.
 							</Typography>
 						</CardContent>
@@ -48,10 +51,10 @@ const Features: React.FC = () => {
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: 64, mb: 2 }}>
+							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
 								Flexible Model Support
 							</Typography>
-							<Typography variant="body2" sx={{ height: 48 }}>
+							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
 								Leverage local models with Ollama or integrate with cloud-hosted solutions like OpenAI and DeepSeek via LangChain.
 							</Typography>
 						</CardContent>

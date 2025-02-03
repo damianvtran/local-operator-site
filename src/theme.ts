@@ -17,12 +17,13 @@ const theme = createTheme({
       paper: '#121212',
     },
     text: {
-      primary: '#ffffff',
+      primary: '#f5f5f5',
       secondary: '#B0B0B0',
     },
   },
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'system-ui, Avenir, Inter, Helvetica, Arial, sans-serif',
+    fontSize: 16,
   },
   components: {
     MuiAppBar: {
