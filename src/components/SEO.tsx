@@ -40,16 +40,18 @@ const SEO: React.FC<SEOProps> = ({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           "name": "Local Operator",
+          "image": image, 
           "operatingSystem": "ALL",
           "applicationCategory": "BusinessApplication",
           "description": description,
-          "softwareVersion": "0.0.1",
+          "softwareVersion": "v0.1.2",
           "url": url,
           "creator": {
             "@type": "Person",
             "name": "Damian Tran",
             "url": "https://github.com/damianvtran/local-operator"
-          }
+          },
+          "license": "https://opensource.org/licenses/MIT"
         })}
       </script>
       <link rel="canonical" href={url} />
