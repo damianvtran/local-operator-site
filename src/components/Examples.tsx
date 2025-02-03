@@ -1,7 +1,7 @@
 import { Typography, Box } from "@mui/material";
 import Section from "./Section";
-import loMpgExample from "../../public/lo-mpg-example.gif";
-import loGitExample from "../../public/lo-git-example.gif";
+import loMpgExample from "../assets/lo-mpg-example.gif";
+import loGitExample from "../assets/lo-git-example.gif";
 import { styled } from "@mui/material/styles";
 
 const CaptionText = styled(Typography)(({ theme }) => ({

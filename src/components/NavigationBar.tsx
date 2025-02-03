@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import loLogoDarkMode from "../../public/lo-logo-dark-mode.png";
-import loLogoLightMode from "../../public/lo-logo-light-mode.png";
+import loLogoDarkMode from "../assets/lo-logo-dark-mode.png";
+import loLogoLightMode from "../assets/lo-logo-light-mode.png";
 
 const NavigationBar: React.FC = () => {
   const theme = useTheme();
