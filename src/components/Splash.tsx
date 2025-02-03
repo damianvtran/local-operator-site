@@ -1,7 +1,7 @@
 import { Box, Container, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import loLogoDarkMode from "../assets/lo-logo-dark-mode.png";
-import loLogoLightMode from "../assets/lo-logo-light-mode.png";
+import loLogoDarkMode from "@assets/lo-logo-dark-mode.png";
+import loLogoLightMode from "@assets/lo-logo-light-mode.png";
 
 const Splash: React.FC = () => {
   const theme = useTheme();

@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import loBlackBanner from '../assets/lo-black-banner.png';
+import loBlackBanner from '@assets/lo-black-banner.png';
 
 interface SEOProps {
   title?: string;
