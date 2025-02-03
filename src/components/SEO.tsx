@@ -11,7 +11,7 @@ interface SEOProps {
 
 const SEO: React.FC<SEOProps> = ({
   title = "Local Operator | On-Device Python Agents",
-  description = "Local Operator is a Python-based on-device agent that securely executes commands through an interactive CLI and FastAPI server mode. Enjoy advanced features such as code safety verification, contextual execution, and local model support.",
+  description = "Local Operator is a Python-based on-device agent that executes commands through a chat interface. Supports code safety verification, goal-driven execution, and local models with Ollama.",
   url = "https://local-operator.com",
   image = loBlackBanner
 }) => {
@@ -29,12 +29,15 @@ const SEO: React.FC<SEOProps> = ({
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={image} />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Local Operator" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={image} />
+        <meta name="twitter:creator" content="@damianvtran" />
 
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
