@@ -4,18 +4,13 @@ import Section from "./Section";
 const examples = [
 	{
 		id: "overview-dashboard",
-		image: "/static/local-operator-mpg-example.gif",
+		image: "/static/lo-mpg-example.gif",
 		caption: "Agentic model experimentation with Local Operator.",
 	},
 	{
 		id: "detailed-features",
-		image: "/static/example2.png",
-		caption: "Screenshot 2: Detailed view of the features.",
-	},
-	{
-		id: "interactive-demo",
-		image: "/static/example3.png",
-		caption: "Screenshot 3: Interactive demonstration of the agent.",
+		image: "/static/lo-git-example.gif",
+		caption: "Local git automation with Local Operator.",
 	},
 ];
 
