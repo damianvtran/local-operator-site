@@ -4,8 +4,8 @@ import Section from "./Section";
 const examples = [
 	{
 		id: "overview-dashboard",
-		image: "/static/example1.png",
-		caption: "Screenshot 1: Overview of the dashboard.",
+		image: "/static/local-operator-mpg-example.gif",
+		caption: "Agentic model experimentation with Local Operator.",
 	},
 	{
 		id: "detailed-features",
