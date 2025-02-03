@@ -34,11 +34,11 @@ const NavigationBar: React.FC = () => {
         <Button color="inherit" onClick={() => handleScroll("features")} size="small">
           Features
         </Button>
-        <Button color="inherit" onClick={() => handleScroll("getstarted")} size="small">
-          Get Started
-        </Button>
         <Button color="inherit" onClick={() => handleScroll("examples")} size="small">
           Examples
+        </Button>
+        <Button color="inherit" onClick={() => handleScroll("getstarted")} size="small">
+          Get Started
         </Button>
       </Toolbar>
     </AppBar>

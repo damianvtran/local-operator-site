@@ -17,7 +17,7 @@ const GetStarted: React.FC = () => {
 			<Button
 				variant="contained"
 				color="secondary"
-				href="https://github.com/local-operator/local-operator"
+				href="https://github.com/damianvtran/local-operator"
 				target="_blank"
 			>
 				View Documentation
