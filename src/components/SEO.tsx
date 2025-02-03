@@ -18,7 +18,7 @@ const SEO: React.FC<SEOProps> = ({
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content="Local Operator, Python agent, on-device AI, interactive CLI, FastAPI server, code safety, contextual execution, conversation history, local models, Ollama, open source" />
+      <meta name="keywords" content="Local Operator, agentic AI, AI agent, on-device AI, open source, command line chat, python chat, interactive CLI, FastAPI server, code safety, contextual execution, conversation history, local models, Ollama" />
       <meta name="robots" content="index, follow" />
 
       {/* Open Graph */}
