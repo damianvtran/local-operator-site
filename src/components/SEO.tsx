@@ -46,8 +46,8 @@ const SEO: React.FC<SEOProps> = ({
           "softwareVersion": "0.0.1",
           "url": url,
           "creator": {
-            "@type": "Organization",
-            "name": "Local Operator",
+            "@type": "Person",
+            "name": "Damian Tran",
             "url": "https://github.com/damianvtran/local-operator"
           }
         })}
