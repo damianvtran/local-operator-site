@@ -2,17 +2,24 @@ import { Typography, Box } from "@mui/material";
 import Section from "./Section";
 import loMpgExample from "../../public/lo-mpg-example.gif";
 import loGitExample from "../../public/lo-git-example.gif";
+import { styled } from "@mui/material/styles";
+
+const CaptionText = styled(Typography)(({ theme }) => ({
+	color: theme.palette.caption,
+}));
 
 const examples = [
 	{
 		id: "overview-dashboard",
 		image: loMpgExample,
-		caption: "Agentic model experimentation with Local Operator.",
+		captionTitle: "Agentic Model Experimentation",
+		caption: "A user asks the agent to experiment with a few different machine learning approaches to find the best fit for a dataset.  The model creates its own script on the fly, analyzes the results in steps, and then selects the best performing approach on its own.",
 	},
 	{
 		id: "detailed-features",
 		image: loGitExample,
-		caption: "Local git automation with Local Operator.",
+		captionTitle: "Local Git Automation",
+		caption: "A user asks the agent to review the unstaged diffs in the repository, come up with a suitable commit message, and then stage, commit, and push the changes to the remote repository.",
 	},
 ];
 
@@ -33,13 +40,18 @@ const Examples: React.FC = () => {
 							margin: "0 auto",
 						}}
 					/>
-					<Typography variant="body1" sx={{ mt: 1 }}>
-						{example.caption}
-					</Typography>
+					<Box sx={{ mt: 1 }}>
+						<Typography variant="h6" gutterBottom>
+							{example.captionTitle}
+						</Typography>
+						<CaptionText variant="body1">
+							{example.caption}
+						</CaptionText>
+					</Box>
 				</Box>
 			))}
 		</Section>
 	);
 };
 
-export default Examples; 
+export default Examples;

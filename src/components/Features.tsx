@@ -11,10 +11,17 @@ const FeatureCard = styled(Card)(({ theme }) => ({
 	flexDirection: "column",
 }));
 
-const Features: React.FC = () => {
-	const defaultTitleHeight = 72;
-	const defaultBodyHeight = 84;
+const FeatureBody = styled(Typography)(({ theme }) => ({
+	color: theme.palette.caption,
+	height: 84,
+}));
 
+const FeatureTitle = styled(Typography)(({ theme }) => ({
+	height: 72,
+	marginBottom: theme.spacing(2),
+}));
+
+const Features: React.FC = () => {
 	return (
 		<Section id="features">
 			<Typography variant="h3" component="h2" gutterBottom>
@@ -27,72 +34,72 @@ const Features: React.FC = () => {
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
+							<FeatureTitle variant="h5">
 								Interactive CLI Interface
-							</Typography>
-							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
+							</FeatureTitle>
+							<FeatureBody variant="body2">
 								Chat with an AI assistant that executes Python code locally through a dynamic command‐line interface.
-							</Typography>
+							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
+							<FeatureTitle variant="h5">
 								Server Mode
-							</Typography>
-							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
+							</FeatureTitle>
+							<FeatureBody variant="body2">
 								Run as a FastAPI server to interact with the agent via a web interface, enabling secure remote access.
-							</Typography>
+							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
+							<FeatureTitle variant="h5">
 								Code Safety Verification
-							</Typography>
-							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
+							</FeatureTitle>
+							<FeatureBody variant="body2">
 								Leverages built-in safety checks that analyze code for dangerous operations and prompt for user confirmation.
-							</Typography>
+							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
+							<FeatureTitle variant="h5">
 								Contextual Execution
-							</Typography>
-							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
+							</FeatureTitle>
+							<FeatureBody variant="body2">
 								Maintains execution context between code blocks, enabling seamless multi-step tasks with self-correction.
-							</Typography>
+							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
+							<FeatureTitle variant="h5">
 								Conversation History
-							</Typography>
-							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
+							</FeatureTitle>
+							<FeatureBody variant="body2">
 								Tracks your complete interaction history for context-aware and continuous conversation with the agent.
-							</Typography>
+							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
-							<Typography variant="h5" sx={{ height: defaultTitleHeight, mb: 2 }}>
+							<FeatureTitle variant="h5">
 								Local Model Support
-							</Typography>
-							<Typography variant="body2" sx={{ height: defaultBodyHeight }}>
+							</FeatureTitle>
+							<FeatureBody variant="body2">
 								Supports on-device execution using local models like Ollama, providing enhanced privacy and performance.
-							</Typography>
+							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
