@@ -21,9 +21,6 @@
 		format json # set access log format to json mode
 		level DEBUG # enable verbose logging
 		output stdout # explicitly log to stdout
-		include http.handlers.reverse_proxy # include reverse proxy logs
-		include http.handlers.file_server # include file server logs
-		include http.handlers.encode # include encoding logs
 	}
 
 	# health check for railway
