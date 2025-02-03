@@ -4,8 +4,8 @@ import { useTheme } from "@mui/material/styles";
 const Footer: React.FC = () => {
   const theme = useTheme();
   const smallLogo = theme.palette.mode === 'dark'
-    ? '/static/lo-logo-dark-mode.png'
-    : '/static/lo-logo-light-mode.png';
+    ? '/public/lo-logo-dark-mode.png'
+    : '/public/lo-logo-light-mode.png';
 
   return (
     <Box

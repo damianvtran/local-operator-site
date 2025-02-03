@@ -1,15 +1,17 @@
 import { Typography, Box } from "@mui/material";
 import Section from "./Section";
+import loMpgExample from "../../public/lo-mpg-example.gif";
+import loGitExample from "../../public/lo-git-example.gif";
 
 const examples = [
 	{
 		id: "overview-dashboard",
-		image: "/static/lo-mpg-example.gif",
+		image: loMpgExample,
 		caption: "Agentic model experimentation with Local Operator.",
 	},
 	{
 		id: "detailed-features",
-		image: "/static/lo-git-example.gif",
+		image: loGitExample,
 		caption: "Local git automation with Local Operator.",
 	},
 ];

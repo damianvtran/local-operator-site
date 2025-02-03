@@ -1,12 +1,14 @@
 import { AppBar, Toolbar, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import loLogoDarkMode from "../../public/lo-logo-dark-mode.png";
+import loLogoLightMode from "../../public/lo-logo-light-mode.png";
 
 const NavigationBar: React.FC = () => {
   const theme = useTheme();
   const smallLogo =
     theme.palette.mode === "dark"
-      ? "/static/lo-logo-dark-mode.png"
-      : "/static/lo-logo-light-mode.png";
+      ? loLogoDarkMode
+      : loLogoLightMode;
 
   const handleScroll = (sectionId: string) => {
     const section = document.getElementById(sectionId);
