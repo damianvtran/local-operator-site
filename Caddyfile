@@ -18,16 +18,16 @@
 :{$PORT:4173} {
 	# access logs
 	log {
-		format json # set access log format to json mode
-		level DEBUG # enable verbose logging
-		output stdout # explicitly log to stdout
+		format json 
+		level DEBUG
+		output stdout
 	}
 
 	# health check for railway
 	rewrite /health /*
 
 	# serve from the '/app/dist' folder
-	root * /app/dist
+	root * ./dist
 
 	# enable gzipping responses
 	encode gzip
