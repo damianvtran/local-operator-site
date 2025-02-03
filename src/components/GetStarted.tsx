@@ -8,9 +8,11 @@ const GetStarted: React.FC = () => {
 				Get Started
 			</Typography>
 			<Typography variant="body1" sx={{ mb: 3 }}>
-				Dive into Local Operator by reading the documentation, cloning the repository,
-				and contributing to the project. Join our community to help shape the future of
-				on-device agentic planning.
+				Begin your journey with Local Operator by installing the CLI tool:
+				<br /><br />
+				<code>pip install local-operator</code>
+				<br /><br />
+				For detailed instructions, usage examples, and configuration guidance, check out our documentation and consider contributing to the project.
 			</Typography>
 			<Button
 				variant="contained"
@@ -18,7 +20,7 @@ const GetStarted: React.FC = () => {
 				href="https://github.com/local-operator/local-operator"
 				target="_blank"
 			>
-				View on GitHub
+				View Documentation
 			</Button>
 		</Section>
 	);

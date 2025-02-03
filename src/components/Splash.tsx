@@ -24,10 +24,10 @@ const Splash: React.FC = () => {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        pt: 0
+        pt: 0,
       }}
     >
-      <Container sx={{ mt: -8 }}> 
+      <Container sx={{ mt: -8 }}>
         <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
           <img
             src={largeLogo}
@@ -36,7 +36,7 @@ const Splash: React.FC = () => {
           />
         </Box>
         <Typography variant="h2" component="h1" gutterBottom>
-          Local Operator
+          Local Operator: On-device Agentic Task Execution
         </Typography>
         <Typography variant="h5" component="p" gutterBottom>
           On-Device Python Agents with Conversational Intelligence

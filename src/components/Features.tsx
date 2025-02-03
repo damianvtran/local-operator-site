@@ -15,44 +15,44 @@ const Features: React.FC = () => {
 	return (
 		<Section id="features">
 			<Typography variant="h3" component="h2" gutterBottom>
-				Features
+				Key Features
 			</Typography>
 			<Typography variant="body1" sx={{ mb: 4 }}>
 				Local Operator empowers you with:
 			</Typography>
 			<Grid container spacing={4} justifyContent="center">
-				<Grid item xs={12} sm={6} md={3}>
+				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
 							<Typography variant="h5" sx={{ height: 64, mb: 2 }}>
-								Conversational Interface
+								Interactive Interface
 							</Typography>
 							<Typography variant="body2" sx={{ height: 48 }}>
-								Interact naturally with agents using chat.
+								Engage with an AI assistant via a dynamic CLI and FastAPI web interface, making it easy to execute commands.
 							</Typography>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
-				<Grid item xs={12} sm={6} md={3}>
+				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
 							<Typography variant="h5" sx={{ height: 64, mb: 2 }}>
-								Agentic Planning
+								Intelligent & Safe Execution
 							</Typography>
 							<Typography variant="body2" sx={{ height: 48 }}>
-								Execute multi-step tasks with dynamic self-correction.
+								Execute multi-step tasks with self-correction and integrated safety checks to ensure secure operations.
 							</Typography>
 						</CardContent>
 					</FeatureCard>
 				</Grid>
-				<Grid item xs={12} sm={6} md={3}>
+				<Grid item xs={12} sm={6} md={4}>
 					<FeatureCard>
 						<CardContent sx={{ flex: 1 }}>
 							<Typography variant="h5" sx={{ height: 64, mb: 2 }}>
-								Safe Execution
+								Flexible Model Support
 							</Typography>
 							<Typography variant="body2" sx={{ height: 48 }}>
-								Run your code securely and locally without external dependencies.
+								Leverage local models with Ollama or integrate with cloud-hosted solutions like OpenAI and DeepSeek via LangChain.
 							</Typography>
 						</CardContent>
 					</FeatureCard>
