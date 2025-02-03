@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
           style={{ width: 120, height: 120, marginBottom: '8px' }}
         />
         <Typography variant="body2">
-          &copy; {new Date().getFullYear()} Local Operator Site. All rights reserved.
+          &copy; {new Date().getFullYear()} Local Operator. All rights reserved.
         </Typography>
       </Container>
     </Box>

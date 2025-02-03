@@ -17,7 +17,7 @@ const Splash: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "primary.main",
+        backgroundColor: "background.default",
         color: "primary.contrastText",
         py: 6,
         textAlign: "center",

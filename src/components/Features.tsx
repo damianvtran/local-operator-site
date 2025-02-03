@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 
 const FeatureCard = styled(Card)(({ theme }) => ({
 	height: "100%",
-	backgroundColor: theme.palette.primary.dark,
+	backgroundColor: theme.palette.background.paper,
 	color: theme.palette.primary.contrastText,
 	padding: theme.spacing(2),
 	display: "flex",

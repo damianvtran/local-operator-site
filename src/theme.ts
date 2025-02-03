@@ -4,33 +4,46 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#1a1a1a',
-      dark: '#121212',
+      main: '#38C96A',
+      dark: '#16B34A',
+      light: '#68D88E',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#81C784',
-      contrastText: '#000000',
+      main: '#26BC85',
+      dark: '#0AA26D',
+      light: '#52CF9D',
+      contrastText: '#ffffff',
     },
     background: {
-      default: '#121212',
-      paper: '#121212',
+      default: '#0A0A0A',
+      paper: '#141414',
     },
     text: {
-      primary: '#f5f5f5',
-      secondary: '#B0B0B0',
+      primary: '#F9FAFB',
+      secondary: '#9CA3AF',
     },
   },
   typography: {
-    fontFamily: 'system-ui, Avenir, Inter, Helvetica, Arial, sans-serif',
+    fontFamily: 'system-ui, Inter, -apple-system, BlinkMacSystemFont, sans-serif',
     fontSize: 16,
+    h1: {
+      fontWeight: 600,
+    },
+    h2: {
+      fontWeight: 600,
+    },
+    h3: {
+      fontWeight: 600,
+    },
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#121212',
-          borderBottom: '1px solid #333333',
+          backgroundColor: '#0A0A0A',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(8px)',
         },
       },
     },
@@ -38,13 +51,21 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: 4,
-          borderColor: '#ffffff',
+          borderRadius: 6,
+          fontWeight: 500,
+          padding: '8px 16px',
+        },
+        contained: {
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+          },
         },
         outlined: {
-          borderColor: '#ffffff',
+          borderColor: 'rgba(255, 255, 255, 0.2)',
           '&:hover': {
-            borderColor: '#4CAF50',
+            borderColor: '#38C96A',
+            backgroundColor: 'rgba(56, 201, 106, 0.08)',
           },
         },
       },
@@ -52,7 +73,10 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          border: '1px solid #333333',
+          backgroundColor: '#141414',
+          borderRadius: 12,
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(8px)',
         },
       },
     },
