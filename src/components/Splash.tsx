@@ -21,7 +21,7 @@ const Splash: React.FC = () => {
       sx={{
         backgroundColor: "background.default",
         color: "primary.contrastText",
-        py: 6,
+        py: { xs: 8, md: 6 },
         textAlign: "center",
         minHeight: "100vh",
         display: "flex",
@@ -29,7 +29,7 @@ const Splash: React.FC = () => {
         pt: 0,
       }}
     >
-      <Container sx={{ mt: -8 }}>
+      <Container sx={{ mt: { xs: -4, md: -8 } }}>
         <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
           <img
             src={largeLogo}
@@ -37,7 +37,17 @@ const Splash: React.FC = () => {
             style={{ maxWidth: '450px', width: '100%', height: 'auto' }}
           />
         </Box>
-        <Typography variant="h2" component="h1" gutterBottom>
+        <Typography 
+          variant="h2" 
+          component="h1" 
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: '2.5rem',
+              sm: '3.75rem'
+            }
+          }}
+        >
           Local Operator: On-device Agentic Task Execution
         </Typography>
         <Typography variant="h5" component="p" gutterBottom>
