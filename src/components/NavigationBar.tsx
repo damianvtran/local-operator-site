@@ -10,7 +10,6 @@ import {
 	ListItem,
 	ListItemButton,
 	ListItemText,
-	Box,
 	useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -51,9 +50,8 @@ const NavigationBar: React.FC = () => {
 			}
 			setDrawerOpen(open);
 		};
-
 	const drawer = (
-		<Box onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)} sx={{ width: 250 }}>
+		<nav onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)} style={{ width: 250 }}>
 			<List>
 				{navItems.map((item) => (
 					<ListItem key={item.id} disablePadding>
@@ -63,44 +61,47 @@ const NavigationBar: React.FC = () => {
 					</ListItem>
 				))}
 			</List>
-		</Box>
+		</nav>
 	);
 
 	return (
 		<>
-			<AppBar position="static">
-				<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
-					<img
-						src={smallLogo}
-						alt="Local Operator Logo"
-						style={{ width: 60, height: 60, marginRight: "8px" }}
-					/>
-					<Typography variant="h6" sx={{ flexGrow: 1 }}>
-						Local Operator
-					</Typography>
-					{!isMobile &&
-						navItems.map((item) => (
-							<Button
-								key={item.id}
+			<header>
+				<AppBar position="fixed" sx={{ top: 0 }}>
+					<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
+						<img
+							src={smallLogo}
+							alt="Local Operator Logo"
+							style={{ width: 60, height: 60, marginRight: "8px" }}
+						/>
+						<Typography variant="h6" sx={{ flexGrow: 1 }}>
+							Local Operator
+						</Typography>
+						{!isMobile &&
+							navItems.map((item) => (
+								<Button
+									key={item.id}
+									color="inherit"
+									onClick={() => handleScroll(item.id)}
+									size="small"
+								>
+									{item.label}
+								</Button>
+							))}
+						{isMobile && (
+							<IconButton
 								color="inherit"
-								onClick={() => handleScroll(item.id)}
-								size="small"
+								edge="end"
+								onClick={toggleDrawer(true)}
+								sx={{ mr: 1 }}
+								aria-label="Open navigation menu"
 							>
-								{item.label}
-							</Button>
-						))}
-					{isMobile && (
-						<IconButton
-							color="inherit"
-							edge="end"
-							onClick={toggleDrawer(true)}
-							sx={{ mr: 1 }}
-						>
-							<FontAwesomeIcon icon={faBars} />
-						</IconButton>
-					)}
-				</Toolbar>
-			</AppBar>
+								<FontAwesomeIcon icon={faBars} />
+							</IconButton>
+						)}
+					</Toolbar>
+				</AppBar>
+			</header>
 			<Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
 				{drawer}
 			</Drawer>
@@ -108,4 +109,4 @@ const NavigationBar: React.FC = () => {
 	);
 };
 
-export default NavigationBar; 
+export default NavigationBar;

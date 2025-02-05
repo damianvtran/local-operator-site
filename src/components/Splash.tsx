@@ -13,6 +13,8 @@ const Splash: React.FC = () => {
     const aboutSection = document.getElementById("about");
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: "smooth" });
+      aboutSection.tabIndex = -1;
+      aboutSection.focus();
     }
   };
 
@@ -67,4 +69,4 @@ const Splash: React.FC = () => {
   );
 };
 
-export default Splash; 
+export default Splash;
