@@ -1,7 +1,28 @@
 import { Box, Container, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { keyframes } from "@emotion/react";
+import { styled } from "@mui/material/styles";
 import loLogoDarkMode from "@assets/lo-logo-dark-mode.png";
 import loLogoLightMode from "@assets/lo-logo-light-mode.png";
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`;
+
+const AnimatedLogo = styled("img")({
+  animation: `${fadeInUp} 1s linear forwards`,
+  opacity: 0, // Start invisible to prevent flash
+  height: 'auto',
+  maxWidth: '500px',
+  width: '100%'
+});
 
 const Splash: React.FC = () => {
   const theme = useTheme();
@@ -12,9 +33,20 @@ const Splash: React.FC = () => {
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
     if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
-      aboutSection.tabIndex = -1;
-      aboutSection.focus();
+      const headerOffset = 80; // Account for fixed header height
+      const elementPosition = aboutSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      
+      // Set focus after scroll completes
+      setTimeout(() => {
+        aboutSection.tabIndex = -1;
+        aboutSection.focus();
+      }, 1000);
     }
   };
 
@@ -32,11 +64,14 @@ const Splash: React.FC = () => {
       }}
     >
       <Container sx={{ mt: { xs: -4, md: -8 } }}>
-        <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
-          <img
+        <Box 
+          display="flex" 
+          justifyContent="center"
+          sx={{ minHeight: { xs: '200px', sm: '300px', md: '400px' } }}
+        >
+          <AnimatedLogo
             src={largeLogo}
             alt="Local Operator Banner Logo"
-            style={{ maxWidth: '450px', width: '100%', height: 'auto' }}
           />
         </Box>
         <Typography 
