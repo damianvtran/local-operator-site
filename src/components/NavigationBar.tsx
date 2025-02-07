@@ -11,6 +11,8 @@ import {
 	ListItemButton,
 	ListItemText,
 	useMediaQuery,
+	Box,
+	Divider,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,16 +53,62 @@ const NavigationBar: React.FC = () => {
 			setDrawerOpen(open);
 		};
 	const drawer = (
-		<nav onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)} style={{ width: 250 }}>
-			<List>
-				{navItems.map((item) => (
-					<ListItem key={item.id} disablePadding>
-						<ListItemButton onClick={() => handleScroll(item.id)}>
-							<ListItemText primary={item.label} />
-						</ListItemButton>
-					</ListItem>
-				))}
-			</List>
+		<nav>
+			<Box
+				component="div"
+				sx={{
+					width: 280,
+					height: "100%",
+					bgcolor: "background.paper",
+					borderRight: "1px solid",
+					borderColor: "divider",
+				}}
+			>
+				<Box
+					sx={{
+						p: 3,
+						display: "flex",
+						alignItems: "center",
+						gap: 2,
+					}}
+				>
+					<img
+						src={smallLogo}
+						alt="Local Operator Logo"
+						style={{ width: 40, height: 40 }}
+					/>
+					<Typography variant="h6" sx={{ fontWeight: 600 }}>
+						Local Operator
+					</Typography>
+				</Box>
+				<Divider sx={{ opacity: 0.1 }} />
+				<List sx={{ p: 2 }}>
+					{navItems.map((item) => (
+						<ListItem key={item.id} disablePadding sx={{ mb: 1 }}>
+							<ListItemButton
+								onClick={() => {
+									handleScroll(item.id);
+									setDrawerOpen(false);
+								}}
+								sx={{
+									borderRadius: 1,
+									"&:hover": {
+										bgcolor: "action.hover",
+									},
+									py: 1.5,
+								}}
+							>
+								<ListItemText
+									primary={item.label}
+									primaryTypographyProps={{
+										sx: { fontWeight: 500 }
+									}}
+								/>
+							</ListItemButton>
+						</ListItem>
+					))}
+				</List>
+			</Box>
 		</nav>
 	);
 
@@ -102,7 +150,17 @@ const NavigationBar: React.FC = () => {
 					</Toolbar>
 				</AppBar>
 			</header>
-			<Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+			<Drawer
+				anchor="left"
+				open={drawerOpen}
+				onClose={toggleDrawer(false)}
+				PaperProps={{
+					sx: {
+						bgcolor: "background.paper",
+						backgroundImage: "none",
+					}
+				}}
+			>
 				{drawer}
 			</Drawer>
 		</>
