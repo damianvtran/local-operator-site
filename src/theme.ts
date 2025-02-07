@@ -7,6 +7,26 @@ declare module '@mui/material/styles' {
 	interface PaletteOptions {
 		caption?: string;
 	}
+	interface TypographyVariants {
+		gradientTitle: React.CSSProperties;
+	}
+	interface TypographyVariantsOptions {
+		gradientTitle?: React.CSSProperties;
+	}
+}
+
+// Extend the Typography props so that "gradientTitle" can be used as a variant
+declare module '@mui/material/Typography' {
+	interface TypographyPropsVariantOverrides {
+		gradientTitle: true;
+	}
+}
+
+// Extend the Button props so that "nav" can be used as a variant
+declare module '@mui/material/Button' {
+	interface ButtonPropsVariantOverrides {
+		nav: true;
+	}
 }
 
 const theme = createTheme({
@@ -39,19 +59,75 @@ const theme = createTheme({
 		fontSize: 16,
 		h1: { fontWeight: 600 },
 		h2: { fontWeight: 600 },
-		h3: { fontWeight: 600 },
+		h3: { 
+			fontWeight: 600, 
+			fontSize: '3rem',
+			'@media (max-width:600px)': {
+				fontSize: '2.7rem',
+			},
+		},
+		gradientTitle: {
+			fontSize: '1.4rem',
+			fontWeight: 400,
+			letterSpacing: '0.02em',
+			background: 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85))',
+			WebkitBackgroundClip: 'text',
+			WebkitTextFillColor: 'transparent',
+			textShadow: '0 0 30px rgba(255,255,255,0.1)',
+		},
 	},
 	components: {
 		MuiAppBar: {
 			styleOverrides: {
 				root: {
-					backgroundColor: '#0A0A0A',
-					borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-					backdropFilter: 'blur(8px)',
+					top: 0,
+					background: 'rgba(10,10,10,0.8)',
+					backdropFilter: 'blur(10px)',
+				},
+			},
+		},
+		MuiListItemButton: {
+			styleOverrides: {
+				root: {
+					borderRadius: 12, // roughly 1.5 spacing units assuming an 8px baseline
+					transition: 'all 0.2s ease-in-out',
+					paddingTop: 12,
+					paddingBottom: 12,
+					'&:hover': {
+						background: 'rgba(255,255,255,0.05)',
+						backdropFilter: 'blur(4px)',
+					},
+				},
+			},
+		},
+		MuiIconButton: {
+			styleOverrides: {
+				root: {
+					color: 'rgba(255,255,255,0.85)',
+					marginRight: 8,
+					'&:hover': {
+						background: 'rgba(255,255,255,0.05)',
+					},
 				},
 			},
 		},
 		MuiButton: {
+			variants: [
+				{
+					props: { variant: 'nav' },
+					style: {
+						color: 'rgba(255,255,255,0.85)',
+						margin: '0 4px',
+						padding: '8px 16px',
+						borderRadius: 12,
+						transition: 'all 0.2s ease-in-out',
+						'&:hover': {
+							background: 'rgba(255,255,255,0.05)',
+							backdropFilter: 'blur(4px)',
+						},
+					},
+				},
+			],
 			styleOverrides: {
 				root: {
 					textTransform: 'none',
@@ -63,13 +139,6 @@ const theme = createTheme({
 					boxShadow: 'none',
 					'&:hover': {
 						boxShadow: 'none',
-					},
-				},
-				outlined: {
-					borderColor: 'rgba(255, 255, 255, 0.2)',
-					'&:hover': {
-						borderColor: '#38C96A',
-						backgroundColor: 'rgba(56, 201, 106, 0.08)',
 					},
 				},
 			},

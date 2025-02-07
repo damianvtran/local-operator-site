@@ -78,17 +78,7 @@ const NavigationBar: React.FC = () => {
 						alt="Local Operator Logo"
 						style={{ width: 40, height: 40 }}
 					/>
-					<Typography 
-						variant="h6" 
-						sx={{ 
-							fontWeight: 600,
-							letterSpacing: "0.02em",
-							background: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85))",
-							WebkitBackgroundClip: "text",
-							WebkitTextFillColor: "transparent",
-							textShadow: "0 0 30px rgba(255,255,255,0.1)",
-						}}
-					>
+					<Typography variant="gradientTitle">
 						Local Operator
 					</Typography>
 				</Box>
@@ -101,18 +91,13 @@ const NavigationBar: React.FC = () => {
 									handleScroll(item.id);
 									setDrawerOpen(false);
 								}}
-								sx={{
-									borderRadius: 1.5,
-									"&:hover": {
-										bgcolor: "rgba(255,255,255,0.05)",
-										backdropFilter: "blur(4px)",
-									},
-									py: 1.5,
-									transition: "all 0.2s ease-in-out",
-								}}
 							>
 								<ListItemText
-									primary={<Typography sx={{ fontWeight: 500 }}>{item.label}</Typography>}
+									primary={
+										<Typography sx={{ fontWeight: 500 }}>
+											{item.label}
+										</Typography>
+									}
 								/>
 							</ListItemButton>
 						</ListItem>
@@ -125,32 +110,14 @@ const NavigationBar: React.FC = () => {
 	return (
 		<>
 			<header>
-				<AppBar 
-					position="fixed" 
-					sx={{ 
-						top: 0,
-						background: "rgba(10,10,10,0.8)",
-						backdropFilter: "blur(10px)",
-					}}
-				>
+				<AppBar position="fixed" sx={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
 					<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
 						<img
 							src={smallLogo}
 							alt="Local Operator Logo"
 							style={{ width: 60, height: 60, marginRight: "8px" }}
 						/>
-						<Typography 
-							variant="h6" 
-							sx={{ 
-								flexGrow: 1,
-								fontWeight: 600,
-								letterSpacing: "0.02em",
-								background: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85))",
-								WebkitBackgroundClip: "text",
-								WebkitTextFillColor: "transparent",
-								textShadow: "0 0 30px rgba(255,255,255,0.1)",
-							}}
-						>
+						<Typography variant="gradientTitle" sx={{ flexGrow: 1 }}>
 							Local Operator
 						</Typography>
 						{!isMobile &&
@@ -159,18 +126,7 @@ const NavigationBar: React.FC = () => {
 									key={item.id}
 									onClick={() => handleScroll(item.id)}
 									size="small"
-									sx={{
-										color: "rgba(255,255,255,0.85)",
-										mx: 0.5,
-										px: 2,
-										py: 1,
-										borderRadius: 1.5,
-										"&:hover": {
-											background: "rgba(255,255,255,0.05)",
-											backdropFilter: "blur(4px)",
-										},
-										transition: "all 0.2s ease-in-out",
-									}}
+									variant="nav"
 								>
 									{item.label}
 								</Button>
@@ -179,13 +135,6 @@ const NavigationBar: React.FC = () => {
 							<IconButton
 								edge="end"
 								onClick={toggleDrawer(true)}
-								sx={{ 
-									mr: 1,
-									color: "rgba(255,255,255,0.85)",
-									"&:hover": {
-										background: "rgba(255,255,255,0.05)",
-									},
-								}}
 								aria-label="Open navigation menu"
 							>
 								<FontAwesomeIcon icon={faBars} />
@@ -203,7 +152,7 @@ const NavigationBar: React.FC = () => {
 						bgcolor: "rgba(10,10,10,0.8)",
 						backgroundImage: "none",
 						backdropFilter: "blur(10px)",
-					}
+					},
 				}}
 			>
 				{drawer}
