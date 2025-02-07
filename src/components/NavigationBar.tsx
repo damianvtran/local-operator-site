@@ -112,10 +112,7 @@ const NavigationBar: React.FC = () => {
 								}}
 							>
 								<ListItemText
-									primary={item.label}
-									primaryTypographyProps={{
-										sx: { fontWeight: 500 }
-									}}
+									primary={<Typography sx={{ fontWeight: 500 }}>{item.label}</Typography>}
 								/>
 							</ListItemButton>
 						</ListItem>
