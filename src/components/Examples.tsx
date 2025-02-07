@@ -1,8 +1,9 @@
-import { Typography, Grid, Card, CardContent, CardMedia } from "@mui/material";
+import { Typography, Grid, Card, CardContent, CardMedia, Dialog } from "@mui/material";
 import Section from "./Section";
 import loMpgExample from "@assets/lo-mpg-example.gif";
 import loGitExample from "@assets/lo-git-example.gif";
 import { styled } from "@mui/material/styles";
+import { useState } from "react";
 
 const ExampleCard = styled(Card)(({ theme }) => ({
 	height: "100%",
@@ -10,6 +11,7 @@ const ExampleCard = styled(Card)(({ theme }) => ({
 	borderRadius: 16,
 	overflow: "hidden",
 	transition: "transform 0.2s ease-in-out",
+	cursor: "pointer",
 	"&:hover": {
 		transform: "translateY(-4px)",
 	},
@@ -37,6 +39,14 @@ const ExampleDescription = styled(Typography)(({ theme }) => ({
 	lineHeight: 1.6,
 }));
 
+const FullscreenMedia = styled(CardMedia)({
+	width: '100%',
+	height: '100%',
+	backgroundSize: 'contain',
+	backgroundPosition: 'center',
+	backgroundRepeat: 'no-repeat',
+});
+
 const examples = [
 	{
 		id: "overview-dashboard",
@@ -53,6 +63,16 @@ const examples = [
 ];
 
 const Examples: React.FC = () => {
+	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+	const handleCardClick = (image: string) => {
+		setSelectedImage(image);
+	};
+
+	const handleClose = () => {
+		setSelectedImage(null);
+	};
+
 	return (
 		<Section id="examples">
 			<Typography variant="h3" component="h2" gutterBottom>
@@ -64,7 +84,7 @@ const Examples: React.FC = () => {
 			<Grid container spacing={4}>
 				{examples.map((example) => (
 					<Grid item xs={12} key={example.id}>
-						<ExampleCard elevation={0}>
+						<ExampleCard elevation={0} onClick={() => handleCardClick(example.image)}>
 							<ExampleMedia
 								image={example.image}
 								title={example.title}
@@ -81,6 +101,19 @@ const Examples: React.FC = () => {
 					</Grid>
 				))}
 			</Grid>
+
+			<Dialog
+				open={!!selectedImage}
+				onClose={handleClose}
+				maxWidth="xl"
+				fullWidth
+				onClick={handleClose}
+			>
+				<FullscreenMedia
+					image={selectedImage || ''}
+					sx={{ height: { xs: '50vh', sm: '80vh' } }}
+				/>
+			</Dialog>
 		</Section>
 	);
 };
