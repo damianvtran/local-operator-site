@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Favicons from "./Favicons";
-import loBlackBanner from '@assets/lo-black-banner.png';
+import loSitePreview from '@assets/lo-site-preview.png';
 
 interface SEOProps {
   title?: string;
@@ -13,7 +13,7 @@ const SEO: React.FC<SEOProps> = ({
   title = "Local Operator | On-Device Python Agents",
   description = "Local Operator is a Python-based on-device agent that executes commands through a chat interface. Supports code safety verification, goal-driven execution, and local models with Ollama.",
   url = "https://local-operator.com",
-  image = loBlackBanner
+  image = loSitePreview
 }) => {
   return (
     <>
@@ -31,6 +31,11 @@ const SEO: React.FC<SEOProps> = ({
         <meta property="og:image" content={image} />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Local Operator" />
+
+        {/* WhatsApp */}
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Local Operator Preview" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
