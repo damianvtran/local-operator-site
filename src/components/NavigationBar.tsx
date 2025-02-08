@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
 	AppBar,
+	Container,
 	Toolbar,
 	Button,
 	Typography,
@@ -111,36 +112,38 @@ const NavigationBar: React.FC = () => {
 		<>
 			<header>
 				<AppBar position="fixed" sx={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-					<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
-						<img
-							src={smallLogo}
-							alt="Local Operator Logo"
-							style={{ width: 60, height: 60, marginRight: "8px" }}
-						/>
-						<Typography variant="gradientTitle" sx={{ flexGrow: 1 }}>
-							Local Operator
-						</Typography>
-						{!isMobile &&
-							navItems.map((item) => (
-								<Button
-									key={item.id}
-									onClick={() => handleScroll(item.id)}
-									size="small"
-									variant="nav"
+					<Container maxWidth="lg">
+						<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
+							<img
+								src={smallLogo}
+								alt="Local Operator Logo"
+								style={{ width: 60, height: 60, marginRight: "8px" }}
+							/>
+							<Typography variant="gradientTitle" sx={{ flexGrow: 1 }}>
+								Local Operator
+							</Typography>
+							{!isMobile &&
+								navItems.map((item) => (
+									<Button
+										key={item.id}
+										onClick={() => handleScroll(item.id)}
+										size="small"
+										variant="nav"
+									>
+										{item.label}
+									</Button>
+								))}
+							{isMobile && (
+								<IconButton
+									edge="end"
+									onClick={toggleDrawer(true)}
+									aria-label="Open navigation menu"
 								>
-									{item.label}
-								</Button>
-							))}
-						{isMobile && (
-							<IconButton
-								edge="end"
-								onClick={toggleDrawer(true)}
-								aria-label="Open navigation menu"
-							>
-								<FontAwesomeIcon icon={faBars} />
-							</IconButton>
-						)}
-					</Toolbar>
+									<FontAwesomeIcon icon={faBars} />
+								</IconButton>
+							)}
+						</Toolbar>
+					</Container>
 				</AppBar>
 			</header>
 			<Drawer

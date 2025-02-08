@@ -30,6 +30,15 @@ declare module '@mui/material/Button' {
 }
 
 const theme = createTheme({
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 600,
+			md: 900,
+			lg: 1300,
+			xl: 1800,
+		},
+	},
 	palette: {
 		mode: 'dark',
 		primary: {
@@ -150,6 +159,22 @@ const theme = createTheme({
 					borderRadius: 12,
 					border: '1px solid rgba(255, 255, 255, 0.1)',
 					backdropFilter: 'blur(8px)',
+				},
+			},
+		},
+		MuiContainer: {
+			styleOverrides: {
+				maxWidthLg: {
+					maxWidth: '1300px',
+					'@media (min-width:1300px)': {
+						maxWidth: '1300px',
+					},
+				},
+				maxWidthXl: {
+					maxWidth: '1800px',
+					'@media (min-width:1800px)': {
+						maxWidth: '1800px',
+					},
 				},
 			},
 		},
