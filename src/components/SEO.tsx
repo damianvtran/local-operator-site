@@ -28,13 +28,9 @@ const SEO: React.FC<SEOProps> = ({
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" itemProp="image" content={image} />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Local Operator" />
-
-        {/* WhatsApp */}
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Local Operator Preview" />
 
         {/* Twitter Card */}
