@@ -7,6 +7,7 @@ import Footer from "@components/Footer";
 import NavigationBar from "@components/NavigationBar";
 import SEO from "@components/SEO";
 import GoogleAnalytics from "@components/GoogleAnalytics";
+import MediaFeed from "@components/MediaFeed";
 import { Box, Container, Link } from "@mui/material";
 
 const App: React.FC = () => {
@@ -40,6 +41,7 @@ const App: React.FC = () => {
             <Features />
             <Examples />
             <GetStarted />
+            <MediaFeed />
           </Container>
         </main>
         <Footer />

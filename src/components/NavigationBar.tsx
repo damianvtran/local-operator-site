@@ -26,6 +26,7 @@ const navItems = [
 	{ id: "features", label: "Features" },
 	{ id: "examples", label: "Examples" },
 	{ id: "getstarted", label: "Get Started" },
+	{ id: "media-feed", label: "Community" },
 ];
 
 const NavigationBar: React.FC = () => {
