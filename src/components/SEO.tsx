@@ -29,6 +29,10 @@ const SEO: React.FC<SEOProps> = ({
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
         <meta property="og:image" itemProp="image" content={image} />
+        <meta property="og:image:secure_url" content={image} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1712" />
+        <meta property="og:image:height" content="999" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Local Operator" />
         <meta property="og:image:alt" content="Local Operator Preview" />
