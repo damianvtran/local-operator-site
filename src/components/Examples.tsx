@@ -19,7 +19,7 @@ const ExampleCard = styled(Card)(({ theme }) => ({
 
 const ExampleMedia = styled(CardMedia)({
 	height: 0,
-	paddingTop: "64%",
+	paddingTop: "62.5%", // Aspect ratio for 800x500 gif
 	backgroundSize: "cover",
 	backgroundPosition: "top",
 });
