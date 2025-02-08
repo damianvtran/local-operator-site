@@ -20,7 +20,7 @@ const SEO: React.FC<SEOProps> = ({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
             "name": "Local Operator",
-            "image": "https://local-operator.com/preview.png", 
+            "image": "https://local-operator.com/preview_1200x630.png", 
             "operatingSystem": "ALL",
             "applicationCategory": "BusinessApplication",
             "description": description,
