@@ -17,7 +17,7 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   return (
     <>
-      <Helmet>
+      <Helmet prioritizeSeoTags>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content="Local Operator, agentic AI, AI agent, on-device AI, open source, command line chat, python chat, interactive CLI, FastAPI server, code safety, contextual execution, conversation history, local models, Ollama" />
