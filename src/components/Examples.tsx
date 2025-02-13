@@ -2,6 +2,7 @@ import { Typography, Grid, Card, CardContent, CardMedia, Dialog } from "@mui/mat
 import Section from "./Section";
 import loMpgExample from "@assets/lo-mpg-example.gif";
 import loGitExample from "@assets/lo-git-example.gif";
+import loCsvExample from "@assets/lo-csv-example.gif";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
@@ -59,6 +60,12 @@ const examples = [
 		image: loGitExample,
 		title: "Local Git Automation",
 		description: "A user asks the agent to review the unstaged diffs in the repository, come up with a suitable commit message, and then stage, commit, and push the changes to the remote repository.",
+	},
+	{
+		id: "csv-comparison",
+		image: loCsvExample,
+		title: "CSV File Analysis & Comparison",
+		description: "A user asks the agent to compare two versions of a complex CSV file. The agent handles formatting differences, detects encodings, identifies the correct headers among many variations, and provides an intelligent summary of the meaningful changes between versions.",
 	},
 ];
 
