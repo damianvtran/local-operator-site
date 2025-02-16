@@ -74,6 +74,14 @@ const ClickableTitle = styled(Typography)(({ theme }) => ({
 
 const mediaItems = [
   {
+    id: "local-magic",
+    title: "Local Magic: Your Easy Guide to Setting Up Local Operator Without the Hassle",
+    description: "Step-by-step intuitive walkthrough of how to get started with Local Operator, an AI agent that gets things done for you on your computer",
+    link: "https://medium.com/@damianvtran/local-magic-your-easy-guide-to-setting-up-local-operator-without-the-hassle-278cd53eaceb",
+    image: "https://miro.medium.com/v2/resize:fill:320:214/1*Qmy4H0tNSl3MDvUVMnxmmw.jpeg",
+    channelName: "Medium",
+  },
+  {
     id: "image-processing",
     title: "Automating Image Processing using Local Operator",
     description: "Use AI agents on your computer to do image and GIF processing tasks such as conversions, speed adjustment, contrast, and anchored resizing.",
