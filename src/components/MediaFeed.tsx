@@ -8,7 +8,7 @@ const MediaCard = styled(Card)(({ theme }) => ({
   borderRadius: 16,
   overflow: "hidden",
   transition: "transform 0.2s ease-in-out",
-  minHeight: 200,
+  minHeight: 240,
   "&:hover": {
     transform: "translateY(-4px)",
   },
