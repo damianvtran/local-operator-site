@@ -74,6 +74,30 @@ const ClickableTitle = styled(Typography)(({ theme }) => ({
 
 const mediaItems = [
   {
+    id: "generic-ui",
+    title: "Path to Generic User Interfaces: Personal Budgeting with Local Operator",
+    description: "Proof-of-concept of generic visuals conjured by chat with an on-device agent. An agent provides useful financial insights and analysis.",
+    link: "https://medium.com/@damianvtran/path-to-generic-user-interfaces-personal-budgeting-with-local-operator-65936e6f55d0",
+    image: "https://miro.medium.com/v2/resize:fill:320:214/0*YntdNAFCBZaKS1ob.jpg",
+    channelName: "Medium",
+  },
+  {
+    id: "self-validation",
+    title: "Agentic Self-Validation in Code: Better AI Development with Local Operator and Auto TDD",
+    description: "Explore a proof of concept with Local Operator that shows AI agents writing tests and functional code with self-validation.",
+    link: "https://medium.com/@damianvtran/agentic-self-validation-in-code-better-ai-development-with-local-operator-and-auto-tdd-9caea913dc41",
+    image: "https://miro.medium.com/v2/resize:fill:320:214/1*sEagQ09j36hbMTiRpR05tg.jpeg",
+    channelName: "Medium",
+  },
+  {
+    id: "dependency-graphs",
+    title: "Using Local Operator to Automate Dependency Graphs of Your Code",
+    description: "Automate the creation of high-detail architecture and dependency diagrams with affordable and open source AI",
+    link: "https://medium.com/@damianvtran/using-local-operator-to-automate-dependency-graphs-of-your-code-c9157d861e28",
+    image: "https://miro.medium.com/v2/resize:fill:320:214/1*2R25HEArh_9BpMAItC3jJg.png",
+    channelName: "Medium",
+  },
+  {
     id: "local-magic",
     title: "Local Magic: Your Easy Guide to Setting Up Local Operator Without the Hassle",
     description: "Step-by-step intuitive walkthrough of how to get started with Local Operator, an AI agent that gets things done for you on your computer",
