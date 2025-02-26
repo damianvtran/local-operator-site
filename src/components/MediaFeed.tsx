@@ -74,6 +74,14 @@ const ClickableTitle = styled(Typography)(({ theme }) => ({
 
 const mediaItems = [
   {
+    id: "kaggle-automl",
+    title: "Kaggle Top 5% Submission: AutoML on Housing Prices using Local Operator",
+    description: "Achieve a top 5% ranking in a Kaggle data science competition using automated machine learning with Local Operator.",
+    link: "https://www.kaggle.com/code/damianvtran/local-operator-housing-prices-automl-top-5",
+    image: "https://www.kaggle.com/competitions/10211/images/header",
+    channelName: "Kaggle",
+  },
+  {
     id: "generic-ui",
     title: "Path to Generic User Interfaces: Personal Budgeting with Local Operator",
     description: "Proof-of-concept of generic visuals conjured by chat with an on-device agent. An agent provides useful financial insights and analysis.",
