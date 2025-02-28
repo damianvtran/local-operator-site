@@ -1,10 +1,10 @@
-import { Typography, Grid, Card, CardContent, CardMedia, Dialog } from "@mui/material";
+import { Typography, Grid, Card, CardContent, Box, Button } from "@mui/material";
+import type { ButtonProps } from "@mui/material";
 import Section from "./Section";
-import loMpgExample from "@assets/lo-mpg-example.gif";
-import loGitExample from "@assets/lo-git-example.gif";
-import loCsvExample from "@assets/lo-csv-example.gif";
 import { styled } from "@mui/material/styles";
-import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faKaggle } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe, faCode, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 const ExampleCard = styled(Card)(({ theme }) => ({
 	height: "100%",
@@ -12,115 +12,143 @@ const ExampleCard = styled(Card)(({ theme }) => ({
 	borderRadius: 16,
 	overflow: "hidden",
 	transition: "transform 0.2s ease-in-out",
-	cursor: "pointer",
 	"&:hover": {
 		transform: "translateY(-4px)",
 	},
 }));
 
-const ExampleMedia = styled(CardMedia)({
-	height: 0,
-	paddingTop: "62.5%", // Aspect ratio for 800x500 gif
-	backgroundSize: "cover",
-	backgroundPosition: "top",
-});
-
 const ExampleContent = styled(CardContent)(({ theme }) => ({
-	padding: theme.spacing(3),
+	padding: theme.spacing(4),
+	height: "100%",
+	display: "flex",
+	flexDirection: "column",
 }));
 
 const ExampleTitle = styled(Typography)(({ theme }) => ({
 	fontWeight: 600,
 	marginBottom: theme.spacing(1),
 	color: theme.palette.text.primary,
+	textAlign: "left",
 }));
 
 const ExampleDescription = styled(Typography)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 	lineHeight: 1.6,
+	marginBottom: theme.spacing(2),
+	flexGrow: 1,
+	textAlign: "left",
 }));
 
-const FullscreenMedia = styled(CardMedia)({
-	width: '100%',
-	height: '100%',
-	backgroundSize: 'contain',
-	backgroundPosition: 'center',
-	backgroundRepeat: 'no-repeat',
-});
+const IconContainer = styled(Box)(({ theme }) => ({
+	width: 48,
+	height: 48,
+	borderRadius: "50%",
+	backgroundColor: "rgba(56, 201, 106, 0.1)",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	marginBottom: theme.spacing(2),
+	color: theme.palette.primary.main,
+	"& svg": {
+		fontSize: "1.5rem",
+	},
+}));
+
+const ActionButton = styled(Button)<ButtonProps<"a">>(({ theme }) => ({
+	padding: theme.spacing(1, 2),
+	borderRadius: 8,
+	textTransform: 'none',
+	'&:hover': {
+		transform: 'translateY(-2px)',
+		transition: 'transform 0.2s'
+	}
+}));
 
 const examples = [
 	{
-		id: "overview-dashboard",
-		image: loMpgExample,
-		title: "Agentic Model Experimentation",
-		description: "A user asks the agent to experiment with a few different machine learning approaches to find the best fit for a dataset. The model creates its own script on the fly, analyzes the results in steps, and then selects the best performing approach on its own.",
+		id: "house-price",
+		icon: faKaggle,
+		title: "Advanced House Price Prediction with XGBoost",
+		description: "A Local Operator agent tackles the Kaggle Home Data competition using sophisticated modeling techniques, systematic hyperparameter tuning with XGBoost, and comprehensive cross-validation strategies, achieving a top 5% live submission score.",
+		link: "https://www.kaggle.com/code/damianvtran/local-operator-housing-prices-automl-top-5"
 	},
 	{
-		id: "detailed-features",
-		image: loGitExample,
-		title: "Local Git Automation",
-		description: "A user asks the agent to review the unstaged diffs in the repository, come up with a suitable commit message, and then stage, commit, and push the changes to the remote repository.",
+		id: "mnist",
+		icon: faKaggle,
+		title: "MNIST Digit Recognition with Deep Learning",
+		description: "An end-to-end solution for the Kaggle Digit Recognizer competition generated from a single question to Local Operator, achieving 99.3% accuracy with CNN architecture, data augmentation, and ensemble methods.",
+		link: "https://www.kaggle.com/code/damianvtran/local-operator-mnist-digits-auto-ml-99-3"
+	},
+  {
+		id: "web-research",
+		icon: faGlobe,
+		title: "Web Research and Data Extraction Techniques",
+		description: "A Local Operator agent searches the web for the right source, reads the site content, and implements web scraping techniques on the spot to extract a long list of data, processing semi-structured information into a clean CSV format with verification steps to ensure data completeness.",
+		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/web_research_scraping.ipynb"
 	},
 	{
-		id: "csv-comparison",
-		image: loCsvExample,
-		title: "CSV File Analysis & Comparison",
-		description: "A user asks the agent to compare two versions of a complex CSV file. The agent handles formatting differences, detects encodings, identifies the correct headers among many variations, and provides an intelligent summary of the meaningful changes between versions.",
+		id: "github-pr",
+		icon: faCode,
+		title: "End-to-End Pull Request Workflow Automation",
+		description: "This comprehensive notebook walks through the complete pull request creation process with a Local Operator agent, systematically reviewing code diffs, excluding unstaged changes, properly targeting branches, and completing PR templates.",
+		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/github_pr.ipynb"
+	},
+	{
+		id: "git-commit",
+		icon: faGithub,
+		title: "Automated Git Commit Message Generation",
+		description: "This interactive notebook demonstrates a Local Operator agent session that automatically reads the diffs from the current git commit and generates a suitable and concise commit message, helping developers maintain clear version history.",
+		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/github_commit.ipynb"
+	},
+	{
+		id: "titanic",
+		icon: faKaggle,
+		title: "Titanic Survival Prediction using LightGBM",
+		description: "A practical notebook showing a Local Operator agent tackling the classic Kaggle Titanic survival prediction competition with LightGBM, detailed feature engineering, and handling of missing values.",
+		link: "https://www.kaggle.com/code/damianvtran/local-operator-titanic-survivors-auto-ml"
 	},
 ];
 
 const Examples: React.FC = () => {
-	const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-	const handleCardClick = (image: string) => {
-		setSelectedImage(image);
-	};
-
-	const handleClose = () => {
-		setSelectedImage(null);
-	};
-
 	return (
 		<Section id="examples">
 			<Typography variant="h3" component="h2" gutterBottom>
-				Examples
+				Example Notebooks
 			</Typography>
 			<Typography variant="body1" sx={{ mb: 6, maxWidth: 800, mx: "auto" }}>
-				See Local Operator in action with these real-world examples
+				Explore these Jupyter notebooks showcasing Local Operator's agent capabilities across various domains.
+				Each notebook is exported from actual conversations with Local Operator agents performing on-device tasks.
 			</Typography>
 			<Grid container spacing={4}>
 				{examples.map((example) => (
-					<Grid item xs={12} key={example.id}>
-						<ExampleCard elevation={0} onClick={() => handleCardClick(example.image)}>
-							<ExampleMedia
-								image={example.image}
-								title={example.title}
-							/>
+					<Grid item xs={12} md={6} key={example.id}>
+						<ExampleCard elevation={0}>
 							<ExampleContent>
-								<ExampleTitle variant="h5">
+								<IconContainer>
+									<FontAwesomeIcon icon={example.icon} />
+								</IconContainer>
+								<ExampleTitle variant="h6">
 									{example.title}
 								</ExampleTitle>
 								<ExampleDescription variant="body2">
 									{example.description}
 								</ExampleDescription>
+								<Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+									<ActionButton
+										variant="outlined"
+										color="primary"
+										href={example.link}
+										rel="noopener noreferrer"
+										target="_blank"
+									>
+										View Notebook
+									</ActionButton>
+								</Box>
 							</ExampleContent>
 						</ExampleCard>
 					</Grid>
 				))}
 			</Grid>
-
-			<Dialog
-				open={!!selectedImage}
-				onClose={handleClose}
-				maxWidth="xl"
-				fullWidth
-				onClick={handleClose}
-			>
-				<FullscreenMedia
-					image={selectedImage || ''}
-					sx={{ height: { xs: '50vh', sm: '80vh' } }}
-				/>
-			</Dialog>
 		</Section>
 	);
 };
