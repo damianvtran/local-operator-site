@@ -4,7 +4,7 @@ import Section from "./Section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faKaggle } from '@fortawesome/free-brands-svg-icons';
-import { faGlobe, faCode, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faCode } from '@fortawesome/free-solid-svg-icons';
 
 const ExampleCard = styled(Card)(({ theme }) => ({
 	height: "100%",
