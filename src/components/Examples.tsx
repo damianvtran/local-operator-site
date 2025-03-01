@@ -3,8 +3,8 @@ import type { ButtonProps } from "@mui/material";
 import Section from "./Section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faKaggle } from '@fortawesome/free-brands-svg-icons';
-import { faGlobe, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faKaggle } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe, faCode, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 const ExampleCard = styled(Card)(({ theme }) => ({
 	height: "100%",
@@ -94,11 +94,11 @@ const examples = [
 		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/github_pr.ipynb"
 	},
 	{
-		id: "git-commit",
-		icon: faGithub,
-		title: "Automated Git Commit Message Generation",
-		description: "This interactive notebook demonstrates a Local Operator agent session that automatically reads the diffs from the current git commit and generates a suitable and concise commit message, helping developers maintain clear version history.",
-		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/github_commit.ipynb"
+		id: "business-pricing",
+		icon: faMoneyBill,
+		title: "Business Pricing and Margin Calculations",
+		description: "A Local Operator agent calculates optimal subscription prices based on costs, margins, and projected increases. It computes costs, revenues, and prices for different tiers, aiding financial planning for SMBs.",
+		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/business_pricing_margin.ipynb"
 	},
 	{
 		id: "titanic",
