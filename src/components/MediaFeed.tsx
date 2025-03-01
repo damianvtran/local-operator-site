@@ -71,8 +71,15 @@ const ClickableTitle = styled(Typography)(({ theme }) => ({
     fontSize: '1.1rem',
   }
 }));
-
 const mediaItems = [
+  {
+    id: "ai-pricing",
+    title: "AI Agents for Small Businesses: Figuring out Pricing",
+    description: "A guide to using AI agents on Local Operator to figure out pricing calculations on the fly for products with multiple changing cost inputs",
+    link: "https://medium.com/@damianvtran/ai-agents-for-small-businesses-figuring-out-pricing-a25bcb7cd1f7",
+    image: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*davBOATvJX_I-cMKYsQp5Q.jpeg",
+    channelName: "Medium",
+  },
   {
     id: "kaggle-automl",
     title: "Kaggle Top 5% Submission: AutoML on Housing Prices using Local Operator",
