@@ -66,6 +66,13 @@ const ActionButton = styled(Button)<ButtonProps<"a">>(({ theme }) => ({
 
 const examples = [
 	{
+		id: "deep-research-llm",
+		icon: faGlobe,
+		title: "Open Source Deep Research",
+		description: "A Local Operator agent conducts in-depth research on the current state of Large Language Models (LLMs) and Agentic AI, systematically gathering information using web search tools and creating a well-organized markdown report with thorough citations for just $0.19 USD.",
+		link: "https://github.com/damianvtran/local-operator/blob/main/examples/notebooks/deep_research_agentic_ai.ipynb"
+	},
+	{
 		id: "house-price",
 		icon: faKaggle,
 		title: "Advanced House Price Prediction with XGBoost",
