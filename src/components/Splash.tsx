@@ -144,7 +144,7 @@ const Splash: React.FC = () => {
                 mb: 3
               }}
             >
-              Local Operator: On-device Agentic Task Execution
+              Local Operator: AI Agent Assistants On Your Device
             </GradientText>
             
             <Typography 
@@ -162,7 +162,7 @@ const Splash: React.FC = () => {
                 mx: 'auto'
               }}
             >
-              On-Device Python Agents with Conversational Intelligence
+              Agents Running Code on Demand with Conversational Intelligence
             </Typography>
 
             <ActionButton
