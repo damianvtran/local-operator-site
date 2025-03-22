@@ -6,19 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple, faWindows, faLinux, faAndroid } from "@fortawesome/free-brands-svg-icons";
 import { faDownload, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import uiPreview from "/public/ui-preview.png";
-import loLogoDarkMode from "@assets/lo-logo-dark-mode.png";
-import loLogoLightMode from "@assets/lo-logo-light-mode.png";
-
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-`;
 
 const fadeInRight = keyframes`
   from {
@@ -63,32 +50,11 @@ const pulse = keyframes`
   }
 `;
 
-const LogoContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  position: 'absolute',
-  top: theme.spacing(4),
-  left: theme.spacing(4),
-  zIndex: 10,
-  animation: `${fadeInRight} 1s ease-out forwards`,
-  opacity: 0,
-  [theme.breakpoints.down('md')]: {
-    top: theme.spacing(2),
-    left: theme.spacing(2),
-  }
-}));
-
-const Logo = styled("img")({
-  height: 50,
-  width: 'auto',
-  marginRight: '12px'
-});
-
 const AnimatedPreview = styled("img")(({ theme }) => ({
-  animation: `${fadeInUp} 1.2s ease-out forwards`,
+  animation: `${fadeInLeft} 1.2s ease-out forwards`,
   opacity: 0,
-  height: 'calc(100vh - 180px)', // Reduced height to ensure proper spacing
-  width: 'auto',
+  height: 'auto', // Reduced height to ensure proper spacing
+  width: '110%',
   objectFit: 'contain', // Maintain aspect ratio
   filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5))',
   transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out',
@@ -97,6 +63,10 @@ const AnimatedPreview = styled("img")(({ theme }) => ({
   '&:hover': {
     transform: 'scale(1.03) translateY(-8px)',
     filter: 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6))',
+  },
+  [theme.breakpoints.up('md')]: {
+    height: 'calc(100vh - 180px)', // Reduced height to avoid touching nav bar
+    width: 'auto',
   }
 }));
 
@@ -196,12 +166,13 @@ const MainWrapper = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   minHeight: '100vh',
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   position: 'relative',
   overflow: 'hidden',
   paddingTop: theme.spacing(8),
   [theme.breakpoints.up('md')]: {
-    paddingTop: 0
+    paddingTop: 0,
+    alignItems: 'center',
   },
   '&::before': {
     content: '""',
@@ -340,19 +311,21 @@ const DesktopButtonsContainer = styled(Box, {
 }));
 // Desktop preview container
 const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
-  height: 'calc(100vh - 160px)', // Reduced height to avoid touching nav bar
-  width: 'auto',
+  height: 'auto',
+  width: '100%',
   display: 'flex',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
   position: 'relative',
   margin: 'auto 0', // Center vertically
-  paddingLeft: theme.spacing(6), // Reduced padding to allow image to anchor left
+  paddingLeft: theme.spacing(0),
   paddingTop: theme.spacing(2.5), // Add top padding to shift image down by 20px
   [theme.breakpoints.up('lg')]: {
     paddingLeft: theme.spacing(2),
     paddingTop: theme.spacing(8),
-    paddingRight: theme.spacing(4)
+    paddingRight: theme.spacing(4),
+    justifyContent: 'flex-start',
+    height: 'calc(100vh - 160px)', // Reduced height to avoid touching nav bar
   }
 }));
 
@@ -401,7 +374,6 @@ const Splash: React.FC = () => {
   const os = detectOS();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
-  const logo = theme.palette.mode === 'dark' ? loLogoDarkMode : loLogoLightMode;
 
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
@@ -424,13 +396,7 @@ const Splash: React.FC = () => {
 
   return (
     <MainWrapper>
-      {/* Logo in top left */}
-      <LogoContainer>
-        <Logo src={logo} alt="Local Operator Logo" />
-        <Typography variant="gradientTitle">Local Operator</Typography>
-      </LogoContainer>
-
-      <ContentContainer maxWidth="xl">
+      <ContentContainer maxWidth="lg">
         {isMobile ? (
           // Mobile layout - stacked
           <MobileLayout>
