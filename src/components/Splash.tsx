@@ -87,9 +87,9 @@ const Logo = styled("img")({
 const AnimatedPreview = styled("img")(({ theme }) => ({
   animation: `${fadeInUp} 1.2s ease-out forwards`,
   opacity: 0,
-  height: 'auto',
-  maxWidth: '1050px',
-  width: '100%',
+  height: 'calc(100vh - 180px)', // Reduced height to ensure proper spacing
+  width: 'auto',
+  objectFit: 'contain', // Maintain aspect ratio
   filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5))',
   transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out',
   borderRadius: '16px',
@@ -338,15 +338,20 @@ const DesktopButtonsContainer = styled(Box, {
   flexDirection: isTablet ? 'column' : 'row',
   gap: theme.spacing(2)
 }));
-
 // Desktop preview container
 const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
+  height: 'calc(100vh - 160px)', // Reduced height to avoid touching nav bar
+  width: 'auto',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   position: 'relative',
+  margin: 'auto 0', // Center vertically
+  paddingLeft: theme.spacing(6), // Reduced padding to allow image to anchor left
+  paddingTop: theme.spacing(2.5), // Add top padding to shift image down by 20px
   [theme.breakpoints.up('lg')]: {
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(8),
     paddingRight: theme.spacing(4)
   }
 }));
@@ -364,7 +369,6 @@ const LearnMoreButtonIconContainer = styled(Box)({
   alignItems: 'center',
   gap: 8
 });
-
 /**
  * Detects the user's operating system
  * @returns An object containing the OS name and icon
@@ -432,7 +436,7 @@ const Splash: React.FC = () => {
           <MobileLayout>
             <AnimatedContent delay="0.3s">
               <FeatureBadge>
-                AI-Powered Productivity
+                Open Source Agentic AI
               </FeatureBadge>
               
               <MobileHeadingText 
@@ -463,18 +467,6 @@ const Splash: React.FC = () => {
             
             <MobileAnimatedContentWrapper delay="0.7s">
               <MobileButtonsContainer>
-                <DownloadButton
-                  variant="contained"
-                  size="large"
-                  fullWidth
-                  sx={{ maxWidth: '320px' }}
-                >
-                  <ButtonIconContainer>
-                    {os.icon}
-                    <span>Download for {os.name}</span>
-                  </ButtonIconContainer>
-                </DownloadButton>
-                
                 <ActionButton
                   variant="outlined"
                   color="primary"
