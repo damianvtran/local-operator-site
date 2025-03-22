@@ -1,10 +1,12 @@
-import { Typography, Button, Box, Paper, Container } from "@mui/material";
+import { Typography, Button, Box, Paper, Container, useMediaQuery } from "@mui/material";
 import type { ButtonProps } from "@mui/material";
 import Section from "./Section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import { DownloadButton } from "./download-button";
+import { useTheme } from "@mui/material/styles";
 
 const InstallBox = styled(Paper)(({ theme }) => ({
 	padding: theme.spacing(3),
@@ -33,7 +35,22 @@ const ActionButton = styled(Button)<ButtonProps<"a">>(({ theme }) => ({
 	}
 }));
 
+const MobileNotice = styled(Box)(({ theme }) => ({
+	padding: theme.spacing(2),
+	backgroundColor: 'rgba(56, 201, 106, 0.1)',
+	borderRadius: 8,
+	border: '1px solid rgba(56, 201, 106, 0.3)',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	gap: theme.spacing(2),
+	marginBottom: theme.spacing(2)
+}));
+
 const GetStarted: React.FC = () => {
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+
 	return (
 		<Section id="getstarted">
 			<Container maxWidth="md">
@@ -63,9 +80,19 @@ const GetStarted: React.FC = () => {
 					<Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
 						Get the latest version for your operating system and start using Local Operator right away.
 					</Typography>
-					<Box textAlign="center" mb={2}>
-						<DownloadButton />
-					</Box>
+					
+					{isDesktop ? (
+						<Box textAlign="center" mb={2}>
+							<DownloadButton />
+						</Box>
+					) : (
+						<MobileNotice>
+							<FontAwesomeIcon icon={faDesktop} size="lg" color={theme.palette.primary.main} />
+							<Typography variant="body1">
+								Local Operator is currently only available for desktop devices. Please visit this page on your computer to download.
+							</Typography>
+						</MobileNotice>
+					)}
 				</InstallBox>
 
 				<Box textAlign="center">
