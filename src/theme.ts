@@ -35,7 +35,7 @@ const theme = createTheme({
 			xs: 0,
 			sm: 600,
 			md: 900,
-			lg: 1300,
+			lg: 1400,
 			xl: 1800,
 		},
 	},
@@ -165,9 +165,9 @@ const theme = createTheme({
 		MuiContainer: {
 			styleOverrides: {
 				maxWidthLg: {
-					maxWidth: '1300px',
-					'@media (min-width:1300px)': {
-						maxWidth: '1300px',
+					maxWidth: '1400px',
+					'@media (min-width:1400px)': {
+						maxWidth: '1400px',
 					},
 				},
 				maxWidthXl: {
