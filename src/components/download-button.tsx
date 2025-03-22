@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faApple, faWindows, faLinux, faAndroid } from "@fortawesome/free-brands-svg-icons";
+import { faApple, faWindows, faLinux } from "@fortawesome/free-brands-svg-icons";
 import { faDownload, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { keyframes } from "@emotion/react";
 import { useGithubRelease } from "../hooks/use-github-release";
@@ -104,12 +104,6 @@ const detectOS = (): { name: string; icon: React.ReactNode } => {
   }
   if (userAgent.indexOf("Linux") !== -1) {
     return { name: "Linux", icon: <FontAwesomeIcon icon={faLinux} size="lg" /> };
-  }
-  if (userAgent.indexOf("Android") !== -1) {
-    return { name: "Android", icon: <FontAwesomeIcon icon={faAndroid} size="lg" /> };
-  }
-  if (userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1) {
-    return { name: "iOS", icon: <FontAwesomeIcon icon={faApple} size="lg" /> };
   }
   
   // Default fallback
