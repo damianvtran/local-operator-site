@@ -1,9 +1,11 @@
-import { Box, Container, Typography, Button } from "@mui/material";
+import { Box, Container, Typography, Button, Tooltip } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
-import loLogoDarkMode from "@assets/lo-logo-dark-mode.png";
-import loLogoLightMode from "@assets/lo-logo-light-mode.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faApple, faWindows, faLinux, faAndroid } from "@fortawesome/free-brands-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import uiPreview from "/public/ui-preview.png";
 
 const fadeInUp = keyframes`
   from {
@@ -25,18 +27,21 @@ const fadeIn = keyframes`
   }
 `;
 
-const AnimatedLogo = styled("img")({
+const AnimatedPreview = styled("img")(({ theme }) => ({
   animation: `${fadeInUp} 1.2s ease-out forwards`,
   opacity: 0,
   height: 'auto',
-  maxWidth: '500px',
+  maxWidth: '1050px',
   width: '100%',
-  filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))',
-  transition: 'transform 0.3s ease-in-out',
+  filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4))',
+  transition: 'transform 0.3s ease-in-out, filter 0.3s ease-in-out',
+  borderRadius: '12px',
+  border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
   '&:hover': {
-    transform: 'scale(1.02)',
+    transform: 'scale(1.02) translateY(-5px)',
+    filter: 'drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5))',
   }
-});
+}));
 
 const AnimatedContent = styled(Box)({
   animation: `${fadeIn} 1.5s ease-out forwards`,
@@ -66,11 +71,51 @@ const ActionButton = styled(Button)(({ theme }) => ({
   }
 }));
 
+const DownloadButton = styled(Button)(({ theme }) => ({
+  padding: theme.spacing(1.5, 4),
+  fontSize: '1.1rem',
+  borderRadius: 8,
+  textTransform: 'none',
+  transition: 'all 0.3s ease-in-out',
+  marginLeft: theme.spacing(2),
+  backgroundColor: theme.palette.secondary.main,
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.dark,
+    transform: 'translateY(-2px)',
+    boxShadow: '0 6px 12px rgba(38, 188, 133, 0.2)'
+  }
+}));
+
+/**
+ * Detects the user's operating system
+ * @returns An object containing the OS name and icon
+ */
+const detectOS = (): { name: string; icon: React.ReactNode } => {
+  const userAgent = window.navigator.userAgent;
+  
+  if (userAgent.indexOf("Win") !== -1) {
+    return { name: "Windows", icon: <FontAwesomeIcon icon={faWindows} size="lg" /> };
+  }
+  if (userAgent.indexOf("Mac") !== -1) {
+    return { name: "macOS", icon: <FontAwesomeIcon icon={faApple} size="lg" /> };
+  }
+  if (userAgent.indexOf("Linux") !== -1) {
+    return { name: "Linux", icon: <FontAwesomeIcon icon={faLinux} size="lg" /> };
+  }
+  if (userAgent.indexOf("Android") !== -1) {
+    return { name: "Android", icon: <FontAwesomeIcon icon={faAndroid} size="lg" /> };
+  }
+  if (userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1) {
+    return { name: "iOS", icon: <FontAwesomeIcon icon={faApple} size="lg" /> };
+  }
+  
+  // Default fallback
+  return { name: "your device", icon: <FontAwesomeIcon icon={faDownload} size="lg" /> };
+};
+
 const Splash: React.FC = () => {
   const theme = useTheme();
-  const largeLogo = theme.palette.mode === 'dark' 
-    ? loLogoDarkMode
-    : loLogoLightMode;
+  const os = detectOS();
 
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
@@ -115,21 +160,14 @@ const Splash: React.FC = () => {
         }
       }}
     >
-      <Container maxWidth="md" sx={{ position: "relative", zIndex: 2, py: { xs: 8, md: 6 } }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2, py: { xs: 6, md: 4 } }}>
         <Box 
           display="flex" 
           flexDirection="column"
           alignItems="center"
           textAlign="center"
-          sx={{ mt: { xs: 4, md: 8 } }}
+          sx={{ mt: { xs: 2, md: 4 } }}
         >
-          <Box sx={{ mb: 0, minHeight: { xs: '200px', sm: '300px', md: '400px' }, display: 'flex', alignItems: 'center' }}>
-            <AnimatedLogo
-              src={largeLogo}
-              alt="Local Operator Banner Logo"
-            />
-          </Box>
-          
           <AnimatedContent>
             <GradientText 
               variant="h2"
@@ -137,11 +175,11 @@ const Splash: React.FC = () => {
               sx={{
                 fontSize: {
                   xs: '2rem',
-                  sm: '3rem',
-                  md: '3.75rem'
+                  sm: '2.75rem',
+                  md: '3rem'
                 },
                 fontWeight: 700,
-                mb: 3
+                mb: 2
               }}
             >
               Local Operator: AI Agent Assistants On Your Device
@@ -154,25 +192,57 @@ const Splash: React.FC = () => {
               color="text.secondary"
               sx={{
                 fontSize: {
-                  xs: '1.5rem',
-                  sm: '1.75rem'
+                  xs: '1.25rem',
+                  sm: '1.5rem'
                 },
-                mb: 4,
+                mb: 3,
                 maxWidth: '800px',
                 mx: 'auto'
               }}
             >
               Agents Running Code on Demand with Conversational Intelligence
             </Typography>
-
-            <ActionButton
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={scrollToAbout}
-            >
-              Learn More
-            </ActionButton>
+          </AnimatedContent>
+          
+          <Box sx={{ 
+            mb: 5, 
+            mt: 3,
+            width: '100%', 
+            display: 'flex', 
+            justifyContent: 'center',
+            alignItems: 'center',
+            px: { xs: 2, sm: 4, md: 6 }
+          }}>
+            {/* @ts-ignore - MUI Tooltip has type issues */}
+            <Tooltip title="UI Preview of Local Operator">
+              <AnimatedPreview
+                src={uiPreview}
+                alt="Local Operator UI Preview"
+              />
+            </Tooltip>
+          </Box>
+          
+          <AnimatedContent sx={{ mt: 2 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: { xs: 2, sm: 0 } }}>
+              <ActionButton
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={scrollToAbout}
+              >
+                Learn More
+              </ActionButton>
+              
+              <DownloadButton
+                variant="contained"
+                size="large"
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  {os.icon}
+                  <span>Download for {os.name}</span>
+                </Box>
+              </DownloadButton>
+            </Box>
           </AnimatedContent>
         </Box>
       </Container>
