@@ -372,8 +372,6 @@ const Splash: React.FC = () => {
             
             <MobileAnimatedContentWrapper delay="0.7s">
               <MobileButtonsContainer>
-                <DownloadButton sx={{ maxWidth: '320px' }} />
-                
                 <ActionButton
                   variant="outlined"
                   color="primary"
