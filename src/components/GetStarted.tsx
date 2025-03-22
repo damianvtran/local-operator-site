@@ -4,6 +4,7 @@ import Section from "./Section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { DownloadButton } from "./download-button";
 
 const InstallBox = styled(Paper)(({ theme }) => ({
 	padding: theme.spacing(3),
@@ -57,12 +58,14 @@ const GetStarted: React.FC = () => {
 
 				<InstallBox elevation={2}>
 					<Typography variant="h6" gutterBottom fontWeight={600}>
-						Install via pip (Requires Python 3.12 or higher)
+						Download Local Operator
 					</Typography>
-					<code>pip install local-operator</code>
-					<Typography variant="body1" color="textSecondary">
-						That's it! You're ready to start using Local Operator.
+					<Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
+						Get the latest version for your operating system and start using Local Operator right away.
 					</Typography>
+					<Box textAlign="center" mb={2}>
+						<DownloadButton />
+					</Box>
 				</InstallBox>
 
 				<Box textAlign="center">
@@ -73,7 +76,6 @@ const GetStarted: React.FC = () => {
 						component="a"
 						rel="noopener noreferrer"
 						target="_blank"
-						sx={{ mr: 2 }}
 						startIcon={<FontAwesomeIcon icon={faGithub} />}
 					>
 						View on GitHub

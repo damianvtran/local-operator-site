@@ -3,8 +3,8 @@ import { useTheme } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faApple, faWindows, faLinux, faAndroid } from "@fortawesome/free-brands-svg-icons";
-import { faDownload, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { DownloadButton } from "./download-button";
 import uiPreview from "/public/ui-preview.png";
 
 const fadeInRight = keyframes`
@@ -35,18 +35,6 @@ const fadeIn = keyframes`
   }
   to {
     opacity: 1;
-  }
-`;
-
-const pulse = keyframes`
-  0% {
-    box-shadow: 0 0 0 0 rgba(56, 201, 106, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 15px rgba(56, 201, 106, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(56, 201, 106, 0);
   }
 `;
 
@@ -128,22 +116,6 @@ const ActionButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     transform: 'translateY(-3px)',
     boxShadow: '0 8px 16px rgba(56, 201, 106, 0.25)'
-  }
-}));
-
-const DownloadButton = styled(Button)(({ theme }) => ({
-  padding: theme.spacing(1.5, 4),
-  fontSize: '1.1rem',
-  borderRadius: 12,
-  textTransform: 'none',
-  transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-  fontWeight: 600,
-  backgroundColor: theme.palette.secondary.main,
-  animation: `${pulse} 2s infinite`,
-  '&:hover': {
-    backgroundColor: theme.palette.secondary.dark,
-    transform: 'translateY(-3px) scale(1.03)',
-    boxShadow: '0 8px 16px rgba(38, 188, 133, 0.3)'
   }
 }));
 
@@ -309,6 +281,7 @@ const DesktopButtonsContainer = styled(Box, {
   flexDirection: isTablet ? 'column' : 'row',
   gap: theme.spacing(2)
 }));
+
 // Desktop preview container
 const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
   height: 'auto',
@@ -329,49 +302,15 @@ const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-// Button icon container
-const ButtonIconContainer = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 12
-});
-
 // Learn more button icon container
 const LearnMoreButtonIconContainer = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: 8
 });
-/**
- * Detects the user's operating system
- * @returns An object containing the OS name and icon
- */
-const detectOS = (): { name: string; icon: React.ReactNode } => {
-  const userAgent = window.navigator.userAgent;
-  
-  if (userAgent.indexOf("Win") !== -1) {
-    return { name: "Windows", icon: <FontAwesomeIcon icon={faWindows} size="lg" /> };
-  }
-  if (userAgent.indexOf("Mac") !== -1) {
-    return { name: "macOS", icon: <FontAwesomeIcon icon={faApple} size="lg" /> };
-  }
-  if (userAgent.indexOf("Linux") !== -1) {
-    return { name: "Linux", icon: <FontAwesomeIcon icon={faLinux} size="lg" /> };
-  }
-  if (userAgent.indexOf("Android") !== -1) {
-    return { name: "Android", icon: <FontAwesomeIcon icon={faAndroid} size="lg" /> };
-  }
-  if (userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1) {
-    return { name: "iOS", icon: <FontAwesomeIcon icon={faApple} size="lg" /> };
-  }
-  
-  // Default fallback
-  return { name: "your device", icon: <FontAwesomeIcon icon={faDownload} size="lg" /> };
-};
 
 const Splash: React.FC = () => {
   const theme = useTheme();
-  const os = detectOS();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -433,6 +372,8 @@ const Splash: React.FC = () => {
             
             <MobileAnimatedContentWrapper delay="0.7s">
               <MobileButtonsContainer>
+                <DownloadButton sx={{ maxWidth: '320px' }} />
+                
                 <ActionButton
                   variant="outlined"
                   color="primary"
@@ -475,16 +416,7 @@ const Splash: React.FC = () => {
                   </DesktopSubheadingText>
                   
                   <DesktopButtonsContainer isTablet={isTablet}>
-                    <DownloadButton
-                      variant="contained"
-                      size="large"
-                      fullWidth={isTablet}
-                    >
-                      <ButtonIconContainer>
-                        {os.icon}
-                        <span>Download for {os.name}</span>
-                      </ButtonIconContainer>
-                    </DownloadButton>
+                    <DownloadButton fullWidth={isTablet} />
                     
                     <ActionButton
                       variant="outlined"
