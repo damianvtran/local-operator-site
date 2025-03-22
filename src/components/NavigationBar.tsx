@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	AppBar,
 	Container,
@@ -15,7 +15,7 @@ import {
 	Box,
 	Divider,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import loLogoDarkMode from "@assets/lo-logo-dark-mode.png";
@@ -29,11 +29,62 @@ const navItems = [
 	{ id: "media-feed", label: "Community" },
 ];
 
+/**
+ * Styled AppBar component with sleek animation for appearance and disappearance
+ * Features a combined slide and fade effect with subtle scaling for a modern look
+ */
+const AnimatedAppBar = styled(AppBar, {
+	shouldForwardProp: (prop) => prop !== "visible",
+})<{ visible: boolean }>(({ theme, visible }) => ({
+	transform: visible 
+		? 'translateY(0) scale(1)' 
+		: 'translateY(-100%) scale(0.98)',
+	opacity: visible ? 1 : 0,
+	transition: visible
+		? 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out, box-shadow 0.3s ease-in-out'
+		: 'transform 0.3s cubic-bezier(0.47, 0, 0.745, 0.715), opacity 0.2s ease-in-out, box-shadow 0.3s ease-in-out',
+	boxShadow: visible ? theme.shadows[4] : "none",
+	borderBottom: '1px solid rgba(255,255,255,0.1)',
+	transformOrigin: 'top',
+	willChange: 'transform, opacity',
+}));
+
+/**
+ * NavigationBar component that appears after scrolling down a full screen height
+ */
 const NavigationBar: React.FC = () => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 	const smallLogo =
 		theme.palette.mode === "dark" ? loLogoDarkMode : loLogoLightMode;
+	
+	// State to track whether the navbar should be visible
+	const [visible, setVisible] = useState(false);
+
+	// Effect to track scroll position and update visibility with performance optimization
+	useEffect(() => {
+		// Use requestAnimationFrame for smoother performance
+		const handleScroll = () => {
+			requestAnimationFrame(() => {
+				const currentScrollPos = window.scrollY;
+				const windowHeight = window.innerHeight;
+				
+				// Show navbar if scrolled past one screen height or if loaded below threshold
+				setVisible(currentScrollPos >= windowHeight);
+			});
+		};
+
+		// Check initial position in case page loads below threshold
+		handleScroll();
+		
+		// Add scroll event listener with passive flag for better performance
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		
+		// Clean up event listener
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
 	const handleScroll = (sectionId: string) => {
 		const section = document.getElementById(sectionId);
@@ -112,7 +163,7 @@ const NavigationBar: React.FC = () => {
 	return (
 		<>
 			<header>
-				<AppBar position="fixed" sx={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+				<AnimatedAppBar position="fixed" visible={visible}>
 					<Container maxWidth="lg">
 						<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
 							<img
@@ -145,7 +196,7 @@ const NavigationBar: React.FC = () => {
 							)}
 						</Toolbar>
 					</Container>
-				</AppBar>
+				</AnimatedAppBar>
 			</header>
 			<Drawer
 				anchor="left"

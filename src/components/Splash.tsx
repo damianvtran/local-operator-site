@@ -175,14 +175,14 @@ const Splash: React.FC = () => {
               sx={{
                 fontSize: {
                   xs: '2rem',
-                  sm: '2.75rem',
+                  sm: '2.5rem',
                   md: '3rem'
                 },
                 fontWeight: 700,
                 mb: 2
               }}
             >
-              Local Operator: AI Agent Assistants On Your Device
+              AI Agent Assistants On Your Device
             </GradientText>
             
             <Typography 
@@ -200,7 +200,7 @@ const Splash: React.FC = () => {
                 mx: 'auto'
               }}
             >
-              Agents Running Code on Demand with Conversational Intelligence
+              Agents Working On Demand with Conversational Intelligence
             </Typography>
           </AnimatedContent>
           
