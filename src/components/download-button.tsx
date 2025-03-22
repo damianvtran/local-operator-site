@@ -2,8 +2,11 @@ import { styled } from "@mui/material/styles";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple, faWindows, faLinux, faAndroid } from "@fortawesome/free-brands-svg-icons";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { keyframes } from "@emotion/react";
+import { useGithubRelease } from "../hooks/use-github-release";
+// @ts-ignore - MUI Tooltip has type issues
+import { Tooltip } from "@mui/material";
 
 const pulse = keyframes`
   0% {
@@ -55,6 +58,38 @@ const ButtonIconContainer = styled('span')({
 });
 
 /**
+ * Spinner animation for loading state
+ */
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+/**
+ * Styled spinner component for loading state
+ */
+const LoadingSpinner = styled(FontAwesomeIcon)(({ theme }) => ({
+  animation: `${spin} 1s linear infinite`,
+  color: theme.palette.common.white,
+}));
+
+/**
+ * Version badge component
+ */
+const VersionBadge = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  top: '-10px',
+  right: '-10px',
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+  fontSize: '0.7rem',
+  padding: theme.spacing(0.5, 1),
+  borderRadius: '12px',
+  fontWeight: 'bold',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+}));
+
+/**
  * Detects the user's operating system
  * @returns An object containing the OS name and icon
  */
@@ -91,7 +126,7 @@ type DownloadButtonProps = {
    */
   className?: string;
   /**
-   * Optional custom URL for the download
+   * Optional custom URL for the download (will be overridden by GitHub release URL if available)
    */
   href?: string;
   /**
@@ -106,36 +141,91 @@ type DownloadButtonProps = {
    * Whether the button should take up the full width of its container
    */
   fullWidth?: boolean;
+  /**
+   * GitHub repository owner
+   */
+  repoOwner?: string;
+  /**
+   * GitHub repository name
+   */
+  repoName?: string;
+  /**
+   * Whether to show the version badge
+   */
+  showVersion?: boolean;
 };
 
 /**
  * A reusable download button component that detects the user's OS
- * and displays an appropriate icon and text.
+ * and displays an appropriate icon and text. Automatically fetches
+ * the latest release from GitHub if repoOwner and repoName are provided.
  */
 export const DownloadButton: React.FC<DownloadButtonProps> = ({ 
   customText,
-  href = "https://github.com/damianvtran/local-operator/releases/latest",
+  href = "https://github.com/damianvtran/local-operator-ui/releases/latest",
   sx,
   fullWidth,
+  repoOwner = "damianvtran",
+  repoName = "local-operator-ui",
+  showVersion = true,
   ...props 
 }) => {
   const os = detectOS();
+  const { isLoading, error, downloadUrl, version } = useGithubRelease(repoOwner, repoName);
   
-  return (
-    <StyledDownloadButton
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        width: fullWidth ? '100%' : 'auto',
-        ...(sx as React.CSSProperties)
-      }}
-      {...props}
-    >
+  // Use the dynamic URL if available, otherwise fall back to the provided href
+  const finalHref = downloadUrl || href;
+  
+  // Determine if we should show the version badge
+  const shouldShowVersion = showVersion && version && !isLoading && !error;
+  
+  // Determine button content based on loading/error state
+  const renderButtonContent = () => {
+    if (isLoading) {
+      return (
+        <ButtonIconContainer>
+          <LoadingSpinner icon={faSpinner} size="lg" />
+          <span>Loading download...</span>
+        </ButtonIconContainer>
+      );
+    }
+    
+    if (error) {
+      // @ts-ignore - MUI Tooltip has type issues
+      return (
+        <Tooltip title={`Error: ${error}. Using fallback download link.`}>
+          <ButtonIconContainer>
+            {os.icon}
+            <span>{customText || `Download for ${os.name}`}</span>
+          </ButtonIconContainer>
+        </Tooltip>
+      );
+    }
+    
+    return (
       <ButtonIconContainer>
         {os.icon}
         <span>{customText || `Download for ${os.name}`}</span>
       </ButtonIconContainer>
+    );
+  };
+  
+  return (
+    <StyledDownloadButton
+      href={finalHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        width: fullWidth ? '100%' : 'auto',
+        position: 'relative',
+        ...(sx as React.CSSProperties)
+      }}
+      {...props}
+    >
+      {renderButtonContent()}
+      {shouldShowVersion && (
+        <VersionBadge>{version}</VersionBadge>
+      )}
     </StyledDownloadButton>
   );
 };
