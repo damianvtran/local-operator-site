@@ -76,7 +76,7 @@ const theme = createTheme({
 			},
 		},
 		gradientTitle: {
-			fontSize: '1.4rem',
+			fontSize: '1.2rem',
 			fontWeight: 400,
 			letterSpacing: '0.02em',
 			background: 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85))',

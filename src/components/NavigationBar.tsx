@@ -14,12 +14,12 @@ import {
 	useMediaQuery,
 	Box,
 	Divider,
+	alpha,
 } from "@mui/material";
-import { useTheme, styled } from "@mui/material/styles";
+import { useTheme, styled, keyframes } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import loLogoDarkMode from "@assets/lo-logo-dark-mode.png";
-import loLogoLightMode from "@assets/lo-logo-light-mode.png";
+import navigationLogo from "@assets/apple-icon-180x180.png"
 
 const navItems = [
 	{ id: "about", label: "About" },
@@ -28,6 +28,54 @@ const navItems = [
 	{ id: "getstarted", label: "Get Started" },
 	{ id: "media-feed", label: "Community" },
 ];
+
+
+/**
+ * Pulse animation for the logo
+ */
+const pulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(var(--primary-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+  }
+`;
+
+const LogoImage = styled("img", {
+	shouldForwardProp: (prop) => prop !== "expanded",
+})<{ expanded: boolean }>(({ theme, expanded }) => {
+	// Extract RGB values from primary color for use in animations
+	const primaryColor = theme.palette.primary.main;
+	const primaryRgb = primaryColor
+		.replace(
+			/^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+			(_, r, g, b) => `#${r}${r}${g}${g}${b}${b}`,
+		)
+		.substring(1)
+		.match(/.{2}/g)
+		?.map((x) => Number.parseInt(x, 16))
+		.join(", ");
+
+	return {
+		height: 34,
+    width: 34,
+		marginRight: expanded ? theme.spacing(1.5) : 0,
+		transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+		filter: `drop-shadow(0 0 8px ${alpha(theme.palette.primary.main, 0.3)})`,
+		position: "relative",
+		zIndex: 2,
+		"--primary-rgb": primaryRgb, // CSS variable for use in keyframes
+		"&:hover": {
+			transform: "scale(1.12) rotate(5deg)",
+			filter: `drop-shadow(0 0 12px ${alpha(theme.palette.primary.main, 0.5)})`,
+			animation: `${pulse} 1.5s infinite`,
+		},
+	};
+});
 
 /**
  * Static AppBar component that stays at the top of the page
@@ -42,8 +90,7 @@ const StaticAppBar = styled(AppBar)(() => ({
 const NavigationBar: React.FC = () => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-	const smallLogo =
-		theme.palette.mode === "dark" ? loLogoDarkMode : loLogoLightMode;
+	const smallLogo = navigationLogo;
 
 	const handleScroll = (sectionId: string) => {
 		const section = document.getElementById(sectionId);
@@ -85,10 +132,12 @@ const NavigationBar: React.FC = () => {
 						gap: 2,
 					}}
 				>
-					<img
+					<LogoImage
 						src={smallLogo}
 						alt="Local Operator Logo"
-						style={{ width: 40, height: 40 }}
+						expanded={true}
+						width={32}
+						height={32}
 					/>
 					<Typography variant="gradientTitle">
 						Local Operator
@@ -125,10 +174,12 @@ const NavigationBar: React.FC = () => {
 				<StaticAppBar position="fixed">
 					<Container maxWidth="lg">
 						<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
-							<img
+							<LogoImage
 								src={smallLogo}
 								alt="Local Operator Logo"
-								style={{ width: 60, height: 60, marginRight: "8px" }}
+								expanded={true}
+								width={40}
+								height={40}
 							/>
 							<Typography variant="gradientTitle" sx={{ flexGrow: 1 }}>
 								Local Operator
