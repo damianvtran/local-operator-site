@@ -190,6 +190,181 @@ const FeatureBadge = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.light,
 }));
 
+// Main wrapper with background gradient
+const MainWrapper = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.primary.contrastText,
+  minHeight: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  position: 'relative',
+  overflow: 'hidden',
+  paddingTop: theme.spacing(8),
+  [theme.breakpoints.up('md')]: {
+    paddingTop: 0
+  },
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: theme.palette.mode === 'dark'
+      ? 'radial-gradient(circle at 30% 30%, rgba(56, 201, 106, 0.15) 0%, rgba(0, 0, 0, 0) 70%), radial-gradient(circle at 70% 70%, rgba(38, 188, 133, 0.1) 0%, rgba(0, 0, 0, 0) 70%)'
+      : 'radial-gradient(circle at 30% 30%, rgba(56, 201, 106, 0.08) 0%, rgba(255, 255, 255, 0) 70%), radial-gradient(circle at 70% 70%, rgba(38, 188, 133, 0.05) 0%, rgba(255, 255, 255, 0) 70%)',
+    zIndex: 1
+  }
+}));
+
+// Container with positioning and padding
+const ContentContainer = styled(Container)(({ theme }) => ({
+  position: 'relative',
+  zIndex: 2,
+  paddingTop: theme.spacing(4),
+  paddingBottom: theme.spacing(4),
+  [theme.breakpoints.up('md')]: {
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6)
+  }
+}));
+
+// Mobile layout container
+const MobileLayout = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  textAlign: 'center',
+  marginTop: theme.spacing(4),
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(6)
+  }
+}));
+
+// Mobile heading text
+const MobileHeadingText = styled(GradientText)(({ theme }) => ({
+  fontSize: '2rem',
+  fontWeight: 700,
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '2.5rem'
+  }
+}));
+
+// Mobile subheading text
+const MobileSubheadingText = styled(Typography)(({ theme }) => ({
+  fontSize: '1.25rem',
+  marginBottom: theme.spacing(4),
+  maxWidth: '800px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '1.5rem'
+  }
+}));
+
+// Preview image container for mobile
+const MobilePreviewContainer = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(5),
+  marginTop: theme.spacing(2),
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
+  }
+}));
+
+// Mobile buttons container
+const MobileButtonsContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 16
+});
+
+// Mobile animated content wrapper
+const MobileAnimatedContentWrapper = styled(AnimatedContent)({
+  marginTop: 16,
+  width: '100%'
+});
+
+// Desktop grid container
+const DesktopGridContainer = styled(Grid)({
+  minHeight: '90vh'
+});
+
+// Desktop left grid item
+const DesktopLeftGridItem = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: theme.spacing(6)
+  }
+}));
+
+// Desktop heading text
+const DesktopHeadingText = styled(GradientText)(({ theme }) => ({
+  fontWeight: 700,
+  marginBottom: theme.spacing(2),
+  lineHeight: 1.2,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2.75rem'
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '3.25rem'
+  }
+}));
+
+// Desktop subheading text
+const DesktopSubheadingText = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+  lineHeight: 1.5,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.25rem'
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.5rem'
+  }
+}));
+
+// Desktop buttons container
+const DesktopButtonsContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isTablet',
+})<{ isTablet: boolean }>(({ isTablet, theme }) => ({
+  display: 'flex',
+  flexDirection: isTablet ? 'column' : 'row',
+  gap: theme.spacing(2)
+}));
+
+// Desktop preview container
+const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+  [theme.breakpoints.up('lg')]: {
+    paddingRight: theme.spacing(4)
+  }
+}));
+
+// Button icon container
+const ButtonIconContainer = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12
+});
+
+// Learn more button icon container
+const LearnMoreButtonIconContainer = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8
+});
+
 /**
  * Detects the user's operating system
  * @returns An object containing the OS name and icon
@@ -244,94 +419,39 @@ const Splash: React.FC = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "background.default",
-        color: "primary.contrastText",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        position: "relative",
-        overflow: "hidden",
-        pt: { xs: 8, md: 0 },
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: theme.palette.mode === 'dark'
-            ? 'radial-gradient(circle at 30% 30%, rgba(56, 201, 106, 0.15) 0%, rgba(0, 0, 0, 0) 70%), radial-gradient(circle at 70% 70%, rgba(38, 188, 133, 0.1) 0%, rgba(0, 0, 0, 0) 70%)'
-            : 'radial-gradient(circle at 30% 30%, rgba(56, 201, 106, 0.08) 0%, rgba(255, 255, 255, 0) 70%), radial-gradient(circle at 70% 70%, rgba(38, 188, 133, 0.05) 0%, rgba(255, 255, 255, 0) 70%)',
-          zIndex: 1
-        }
-      }}
-    >
+    <MainWrapper>
       {/* Logo in top left */}
       <LogoContainer>
         <Logo src={logo} alt="Local Operator Logo" />
         <Typography variant="gradientTitle">Local Operator</Typography>
       </LogoContainer>
 
-      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2, py: { xs: 4, md: 6 } }}>
+      <ContentContainer maxWidth="xl">
         {isMobile ? (
           // Mobile layout - stacked
-          <Box 
-            display="flex" 
-            flexDirection="column"
-            alignItems="center"
-            textAlign="center"
-            sx={{ mt: { xs: 4, sm: 6 } }}
-          >
+          <MobileLayout>
             <AnimatedContent delay="0.3s">
               <FeatureBadge>
                 AI-Powered Productivity
               </FeatureBadge>
               
-              <GradientText 
+              <MobileHeadingText 
                 variant="h2"
                 gutterBottom
-                sx={{
-                  fontSize: {
-                    xs: '2rem',
-                    sm: '2.5rem',
-                  },
-                  fontWeight: 700,
-                  mb: 2
-                }}
               >
                 AI Agent Assistants On Your Device
-              </GradientText>
+              </MobileHeadingText>
               
-              <Typography 
+              <MobileSubheadingText 
                 variant="h5" 
-                component="p" 
                 gutterBottom
                 color="text.secondary"
-                sx={{
-                  fontSize: {
-                    xs: '1.25rem',
-                    sm: '1.5rem'
-                  },
-                  mb: 4,
-                  maxWidth: '800px',
-                  mx: 'auto'
-                }}
               >
                 Agents Working On Demand with Conversational Intelligence
-              </Typography>
+              </MobileSubheadingText>
             </AnimatedContent>
             
-            <Box sx={{ 
-              mb: 5, 
-              mt: 2,
-              width: '100%', 
-              display: 'flex', 
-              justifyContent: 'center',
-              alignItems: 'center',
-              px: { xs: 2, sm: 3 }
-            }}>
+            <MobilePreviewContainer>
               {/* @ts-ignore - MUI Tooltip has type issues */}
               <Tooltip title="UI Preview of Local Operator">
                 <AnimatedPreview
@@ -339,20 +459,20 @@ const Splash: React.FC = () => {
                   alt="Local Operator UI Preview"
                 />
               </Tooltip>
-            </Box>
+            </MobilePreviewContainer>
             
-            <AnimatedContent delay="0.7s" sx={{ mt: 2, width: '100%' }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            <MobileAnimatedContentWrapper delay="0.7s">
+              <MobileButtonsContainer>
                 <DownloadButton
                   variant="contained"
                   size="large"
                   fullWidth
                   sx={{ maxWidth: '320px' }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <ButtonIconContainer>
                     {os.icon}
                     <span>Download for {os.name}</span>
-                  </Box>
+                  </ButtonIconContainer>
                 </DownloadButton>
                 
                 <ActionButton
@@ -360,70 +480,52 @@ const Splash: React.FC = () => {
                   color="primary"
                   size="large"
                   onClick={scrollToAbout}
-                  sx={{ maxWidth: '320px' }}
                   fullWidth
+                  sx={{ maxWidth: '320px' }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <LearnMoreButtonIconContainer>
                     <span>Learn More</span>
                     <FontAwesomeIcon icon={faArrowRight} size="sm" />
-                  </Box>
+                  </LearnMoreButtonIconContainer>
                 </ActionButton>
-              </Box>
-            </AnimatedContent>
-          </Box>
+              </MobileButtonsContainer>
+            </MobileAnimatedContentWrapper>
+          </MobileLayout>
         ) : (
           // Desktop layout - side by side with glass panel
-          <Grid container spacing={4} alignItems="center" sx={{ minHeight: '90vh' }}>
-            <Grid item xs={12} lg={5} sx={{ pl: { lg: 6 } }}>
+          <DesktopGridContainer container spacing={4} alignItems="center">
+            <DesktopLeftGridItem item xs={12} lg={5}>
               <AnimatedLeftContent>
                 <GlassPanel>
                   <FeatureBadge>
                     Open Source Agentic AI
                   </FeatureBadge>
                   
-                  <GradientText 
+                  <DesktopHeadingText 
                     variant="h2"
                     gutterBottom
-                    sx={{
-                      fontSize: {
-                        md: '2.75rem',
-                        lg: '3.25rem'
-                      },
-                      fontWeight: 700,
-                      mb: 2,
-                      lineHeight: 1.2
-                    }}
                   >
                     AI Agent Assistants On Your Device
-                  </GradientText>
+                  </DesktopHeadingText>
                   
-                  <Typography 
+                  <DesktopSubheadingText 
                     variant="h5" 
-                    component="p" 
                     gutterBottom
                     color="text.secondary"
-                    sx={{
-                      fontSize: {
-                        md: '1.25rem',
-                        lg: '1.5rem'
-                      },
-                      mb: 4,
-                      lineHeight: 1.5
-                    }}
                   >
                     Agents Working On Demand with Conversational Intelligence
-                  </Typography>
+                  </DesktopSubheadingText>
                   
-                  <Box sx={{ display: 'flex', flexDirection: isTablet ? 'column' : 'row', gap: 2 }}>
+                  <DesktopButtonsContainer isTablet={isTablet}>
                     <DownloadButton
                       variant="contained"
                       size="large"
                       fullWidth={isTablet}
                     >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                      <ButtonIconContainer>
                         {os.icon}
                         <span>Download for {os.name}</span>
-                      </Box>
+                      </ButtonIconContainer>
                     </DownloadButton>
                     
                     <ActionButton
@@ -433,26 +535,19 @@ const Splash: React.FC = () => {
                       onClick={scrollToAbout}
                       fullWidth={isTablet}
                     >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <LearnMoreButtonIconContainer>
                         <span>Learn More</span>
                         <FontAwesomeIcon icon={faArrowRight} size="sm" />
-                      </Box>
+                      </LearnMoreButtonIconContainer>
                     </ActionButton>
-                  </Box>
+                  </DesktopButtonsContainer>
                 </GlassPanel>
               </AnimatedLeftContent>
-            </Grid>
+            </DesktopLeftGridItem>
             
             <Grid item xs={12} lg={7}>
               <AnimatedRightContent>
-                <Box sx={{ 
-                  width: '100%', 
-                  display: 'flex', 
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'relative',
-                  pr: { lg: 4 }
-                }}>
+                <DesktopPreviewContainer>
                   {/* @ts-ignore - MUI Tooltip has type issues */}
                   <Tooltip title="UI Preview of Local Operator">
                     <AnimatedPreview
@@ -460,13 +555,13 @@ const Splash: React.FC = () => {
                       alt="Local Operator UI Preview"
                     />
                   </Tooltip>
-                </Box>
+                </DesktopPreviewContainer>
               </AnimatedRightContent>
             </Grid>
-          </Grid>
+          </DesktopGridContainer>
         )}
-      </Container>
-    </Box>
+      </ContentContainer>
+    </MainWrapper>
   );
 };
 
