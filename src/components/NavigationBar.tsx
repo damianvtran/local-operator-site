@@ -23,8 +23,8 @@ import navigationLogo from "@assets/apple-icon-180x180.png"
 
 const navItems = [
 	{ id: "about", label: "About" },
-	{ id: "features", label: "Features" },
 	{ id: "examples", label: "Examples" },
+	{ id: "features", label: "Features" },
 	{ id: "getstarted", label: "Get Started" },
 	{ id: "media-feed", label: "Community" },
 ];
