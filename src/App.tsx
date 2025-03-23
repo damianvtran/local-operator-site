@@ -38,8 +38,8 @@ const App: React.FC = () => {
         <main id="main-content">
           <Container sx={{ my: 4 }}>
             <About />
-            <Features />
             <Examples />
+            <Features />
             <GetStarted />
             <MediaFeed />
           </Container>

@@ -51,7 +51,7 @@ const Features: React.FC = () => {
 	return (
 		<Section id="features">
 			<Typography variant="h3" component="h2" gutterBottom>
-				Key Features
+				Useful Features
 			</Typography>
 			<Typography variant="body1" sx={{ mb: 6, maxWidth: 800, mx: "auto" }}>
 				Local Operator equips your device with a robust suite of features:
@@ -67,7 +67,7 @@ const Features: React.FC = () => {
 								Interactive CLI Interface
 							</FeatureTitle>
 							<FeatureBody variant="body2">
-								Chat with an AI assistant that executes Python code locally through a dynamic command‐line interface.
+								Automate tasks programmatically with agents through a command line interface.
 							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
@@ -82,7 +82,7 @@ const Features: React.FC = () => {
 								Server Mode
 							</FeatureTitle>
 							<FeatureBody variant="body2">
-								Run as a FastAPI server to interact with the agent via a web interface, enabling secure remote access.
+								Run as a FastAPI server to interact with the agents via a web interface, enabling secure remote access.
 							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
@@ -97,7 +97,7 @@ const Features: React.FC = () => {
 								Code Safety Verification
 							</FeatureTitle>
 							<FeatureBody variant="body2">
-								Leverages built-in safety checks that analyze code for dangerous operations and prompt for user confirmation.
+								Leverages independent AI safety checks that analyze code for dangerous operations and prompt for user confirmation.
 							</FeatureBody>
 						</CardContent>
 					</FeatureCard>
@@ -127,7 +127,7 @@ const Features: React.FC = () => {
 								Conversation History
 							</FeatureTitle>
 							<FeatureBody variant="body2">
-								Tracks your complete interaction history for context-aware and continuous conversation with the agent.
+								Agents learn from your interaction history for context-aware and continuous conversation, and can be shared with others to replicate your results.
 							</FeatureBody>
 						</CardContent>
 					</FeatureCard>

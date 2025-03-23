@@ -1,7 +1,7 @@
 import { Typography, Button, Box, Container, Grid } from "@mui/material";
 import type { ButtonProps } from "@mui/material"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRobot, faShieldHalved, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faLaptop, faBrain } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Section from "./Section";
 import { styled } from "@mui/material/styles";
@@ -62,53 +62,52 @@ const About: React.FC = () => {
 							color: '#FFFFFF'
 						}}
 					>
-						About Local Operator
+						Limitless AI Assistance
 					</Typography>
 					<Typography variant="h6" color="textSecondary" sx={{ mb: 4, maxWidth: 800, mx: "auto" }}>
-						Your intelligent Python assistant that runs on your local machine to help you get things done with less effort.
+						From casual conversation to complex problem-solving, Local Operator adapts to your needs without leaving your device.
 					</Typography>
 				</Box>
 
 				<Grid container spacing={4} justifyContent="center" sx={{ mb: 6 }}>
 					<Grid item xs={12} md={4}>
 						<IconContainer>
-							<FontAwesomeIcon icon={faRobot} />
-						</IconContainer>
-						<FeatureTitle variant="h6">
-							AI-Powered Agent
-						</FeatureTitle>
-						<Typography variant="body2" color="textSecondary" align="center">
-							Conversational interface that plans and executes Python code to achieve your goals
-						</Typography>
-					</Grid>
-					<Grid item xs={12} md={4}>
-						<IconContainer>
-							<FontAwesomeIcon icon={faShieldHalved} />
-						</IconContainer>
-						<FeatureTitle variant="h6">
-							Secure Execution
-						</FeatureTitle>
-						<Typography variant="body2" color="textSecondary" align="center">
-							Built-in safety checks and user confirmation prompts ensure safe code execution
-						</Typography>
-					</Grid>
-					<Grid item xs={12} md={4}>
-						<IconContainer>
 							<FontAwesomeIcon icon={faCode} />
 						</IconContainer>
 						<FeatureTitle variant="h6">
-							Open Source
+							Code-Powered Versatility
 						</FeatureTitle>
 						<Typography variant="body2" color="textSecondary" align="center">
-							MIT Licensed and free to use, with support for both local and cloud-hosted models
+							Uses code as a universal tool to create custom solutions, breaking free from pre-defined capabilities to solve problems creatively
+						</Typography>
+					</Grid>
+					<Grid item xs={12} md={4}>
+						<IconContainer>
+							<FontAwesomeIcon icon={faLaptop} />
+						</IconContainer>
+						<FeatureTitle variant="h6">
+							Local Environment Access
+						</FeatureTitle>
+						<Typography variant="body2" color="textSecondary" align="center">
+							Works directly with your files and applications without data leaving your device, providing assistance across your entire digital workspace
+						</Typography>
+					</Grid>
+					<Grid item xs={12} md={4}>
+						<IconContainer>
+							<FontAwesomeIcon icon={faBrain} />
+						</IconContainer>
+						<FeatureTitle variant="h6">
+							Adaptive Intelligence
+						</FeatureTitle>
+						<Typography variant="body2" color="textSecondary" align="center">
+							Plans, reflects, and iteratively improves to handle complex research, analysis, and development tasks with increasing sophistication
 						</Typography>
 					</Grid>
 				</Grid>
 
 				<HighlightBox>
 					<Typography variant="body1" sx={{ textAlign: 'center' }}>
-						We welcome your feedback and contributions to help make advanced AI tools accessible to everyone.
-						Join our community and help shape the future of local AI assistance.
+						Switch seamlessly between casual conversation and complex tasks - from telling knock-knock jokes to building comprehensive competitive analysis reports on the fly. One assistant, unlimited capabilities.
 					</Typography>
 				</HighlightBox>
 
