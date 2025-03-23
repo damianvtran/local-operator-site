@@ -316,7 +316,7 @@ const Examples: React.FC = () => {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: '200px', // Load videos 200px before they come into view
       threshold: 0.01,
     };
 
@@ -345,26 +345,29 @@ const Examples: React.FC = () => {
 
   // Check if user has scrolled past splash page and start loading videos
   useEffect(() => {
+    const timeoutIds: number[] = [];
+    
     const handleScroll = () => {
       // Consider splash page height to be 100vh
       if (window.scrollY > window.innerHeight * 0.7 && !splashPassedRef.current) {
         splashPassedRef.current = true;
         
         // Start loading all videos in order (top to bottom)
-        for (const example of examples) {
+        for (let index = 0; index < examples.length; index++) {
+          const example = examples[index];
           const videoId = example.id;
           if (!loadedVideos[videoId] && videoRefs.current[videoId]) {
             const videoElement = videoRefs.current[videoId];
             if (videoElement) {
               // Use setTimeout with a small delay to stagger loading and prioritize top videos
-              const index = examples.findIndex(ex => ex.id === videoId);
-              setTimeout(() => {
+              const timeoutId = window.setTimeout(() => {
                 if (videoElement && !loadedVideos[videoId]) {
                   videoElement.style.opacity = '1';
                   videoElement.load();
                   handleVideoLoad(videoId);
                 }
-              }, index * 200); // 200ms delay between each video load
+              }, index * 100); // Reduced delay to 100ms between each video load
+              timeoutIds.push(timeoutId);
             }
           }
         }
@@ -372,7 +375,17 @@ const Examples: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Initial check in case the user has already scrolled
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      // Clean up all timeouts
+      for (const id of timeoutIds) {
+        window.clearTimeout(id);
+      }
+    };
   }, [loadedVideos, handleVideoLoad]);
 
   // Load videos when they become visible if they haven't been loaded yet
@@ -390,6 +403,31 @@ const Examples: React.FC = () => {
       }
     }
   }, [visibleVideos, loadedVideos, handleVideoLoad]);
+  
+  // Fallback mechanism to ensure all videos load after a certain time
+  useEffect(() => {
+    // After 3 seconds, load any videos that haven't been loaded yet
+    const timeoutId = window.setTimeout(() => {
+      if (splashPassedRef.current) {
+        for (const example of examples) {
+          const videoId = example.id;
+          if (!loadedVideos[videoId] && videoRefs.current[videoId]) {
+            const videoElement = videoRefs.current[videoId];
+            if (videoElement) {
+              console.log(`Fallback loading for video: ${videoId}`);
+              videoElement.style.opacity = '1';
+              videoElement.load();
+              handleVideoLoad(videoId);
+            }
+          }
+        }
+      }
+    }, 3000);
+    
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [loadedVideos, handleVideoLoad]);
   
   return (
     <Section id="examples">
