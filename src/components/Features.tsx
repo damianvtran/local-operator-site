@@ -54,7 +54,7 @@ const Features: React.FC = () => {
 				Useful Features
 			</Typography>
 			<Typography variant="body1" sx={{ mb: 6, maxWidth: 800, mx: "auto" }}>
-				Local Operator equips your device with a robust suite of features:
+				Not just agents, but a new suite of tools to build with agentic AI
 			</Typography>
 			<Grid container spacing={4} justifyContent="center">
 				<Grid item xs={12} sm={6} md={4}>

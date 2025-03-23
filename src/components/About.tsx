@@ -65,7 +65,7 @@ const About: React.FC = () => {
 						Limitless AI Assistance
 					</Typography>
 					<Typography variant="h6" color="textSecondary" sx={{ mb: 4, maxWidth: 800, mx: "auto" }}>
-						From casual conversation to complex problem-solving, Local Operator adapts to your needs without leaving your device.
+						From casual conversation to complex problem-solving, Local Operator adapts to your needs and works on your device
 					</Typography>
 				</Box>
 
@@ -89,7 +89,7 @@ const About: React.FC = () => {
 							Local Environment Access
 						</FeatureTitle>
 						<Typography variant="body2" color="textSecondary" align="center">
-							Works directly with your files and applications without data leaving your device, providing assistance across your entire digital workspace
+							Works directly with your files and applications without files leaving your device, providing assistance across your entire digital workspace
 						</Typography>
 					</Grid>
 					<Grid item xs={12} md={4}>
@@ -100,7 +100,7 @@ const About: React.FC = () => {
 							Adaptive Intelligence
 						</FeatureTitle>
 						<Typography variant="body2" color="textSecondary" align="center">
-							Plans, reflects, and iteratively improves to handle complex research, analysis, and development tasks with increasing sophistication
+							Plans, reflects, and iteratively improves to handle complex research, analysis, and development tasks
 						</Typography>
 					</Grid>
 				</Grid>

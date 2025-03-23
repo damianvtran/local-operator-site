@@ -1,6 +1,6 @@
-import { Typography, Box, Card, CardContent } from "@mui/material";
+import { Typography, Box, Card, CardContent, Modal, IconButton, useMediaQuery } from "@mui/material";
 import Section from "./Section";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faGamepad, 
@@ -8,8 +8,10 @@ import {
   faBuilding, 
   faMoneyBillWave, 
   faVideo, 
-  faLightbulb 
+  faLightbulb,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 // Import video assets
 import coderSpaceInvaders from "../assets/coder-space-invaders.mov";
@@ -45,7 +47,7 @@ const VideoCard = styled(Card)(({ theme }) => ({
 }));
 
 // MacBook Pro has a 16:10 aspect ratio
-const VideoContainer = styled(Box)(() => ({
+const VideoContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   borderRadius: "8px 8px 0 0",
   paddingTop: "62.5%", // 16:10 aspect ratio (10/16 = 0.625 = 62.5%)
@@ -60,6 +62,9 @@ const VideoContainer = styled(Box)(() => ({
     zIndex: 1,
     pointerEvents: "none",
   },
+  [theme.breakpoints.down('md')]: {
+    cursor: 'pointer',
+  }
 }));
 
 const VideoElement = styled("video")(() => ({
@@ -139,35 +144,66 @@ const GradientHeading = styled(Typography)(({ theme }) => ({
   }
 }));
 
+const ModalVideo = styled("video")({
+  width: "100%",
+  height: "auto",
+  maxHeight: "80vh",
+  objectFit: "contain",
+});
+
+const ModalContent = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "95%",
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: 8,
+  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+  padding: theme.spacing(1),
+  outline: "none",
+}));
+
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: "absolute",
+  top: 8,
+  right: 8,
+  width: 32,
+  height: 32,
+  fontSize: 24,
+  color: theme.palette.grey[500],
+  zIndex: 10,
+}));
+
 const examples = [
   {
     id: "coder-space-invaders",
     icon: faGamepad,
-    title: "CODER - Your Game Development Assistant",
+    title: "🤖 CODER - Your Game Development Assistant",
     subtitle: "Interactive Coding with Real-time Feedback",
-    description: "Creating a space invaders game with Local Operator with feedback from the user and suggestions for continuous improvement. The agent adapts to user preferences while implementing game mechanics, graphics, and controls.",
+    description: "Creating a space invaders game with Local Operator with feedback from the user and suggestions for continuous improvement. The agent adapts to user preferences while implementing game mechanics, graphics, and controls.  The agent can download royalty free assets from the internet and do end-to-end bootstraps, running commands on the device and writing files all using code as as tool.",
     videoSrc: coderSpaceInvaders
   },
   {
     id: "mike-competitive-landscape",
     icon: faBuilding,
-    title: "Mike - Your Comprehensive Industry Analyst",
+    title: "👨‍💼 Mike - Your Comprehensive Industry Analyst",
     subtitle: "Multi-step Research and Reporting",
-    description: "Doing broad industry analysis and creating a large comprehensive report with comparison tables. This multi-step analysis draws from multiple sources to provide actionable business intelligence and competitive insights.",
+    description: "Doing broad industry analysis and creating a large comprehensive report with comparison tables. This multi-step analysis draws from multiple sources to provide actionable business intelligence and competitive insights.  The agent searches the web for information, branches off into interesting leads to get more information, and writes 7000 word reports with tables, charts, and citations.",
     videoSrc: mikeCompetitiveLandscape
   },
   {
     id: "bob-portfolio-value",
     icon: faMoneyBillWave,
-    title: "Bob - Your Financial Analyst",
+    title: "🙋‍♂️ Bob - Your Financial Analyst",
     subtitle: "Precision Through Code Execution",
-    description: "Calculating compounded return with exchange rates figured out in real time with code. Using code reduces LLM errors since they are able to get precise answers, ensuring accuracy for critical financial decisions.",
+    description: "Calculating compounded return with exchange rates figured out in real time with code. Using code reduces LLM errors since they are able to get precise answers, ensuring accuracy for critical financial decisions.  The agents can also look up information in real time from the web to supplement their analysis, in between running calculations.",
     videoSrc: bobPortfolioValue
   },
   {
     id: "gracie-hair-makeup-content-ideas",
     icon: faLightbulb,
-    title: "Gracie - Your Content Strategy Consultant",
+    title: "🙋‍♀️ Gracie - Your Content Strategy Consultant",
     subtitle: "Data-driven Niche Identification",
     description: "Performing research to identify underserved niches for content creators and generating a PDF of the comprehensive analysis with content ideas and strategies. The agent analyzes trends, audience demographics, and competition to create actionable plans.",
     videoSrc: gracieHairMakeup
@@ -175,22 +211,38 @@ const examples = [
   {
     id: "media-master",
     icon: faVideo,
-    title: "Media Master - Your Video Editing Assistant",
+    title: "🎥 Media Master - Your Video Editing Assistant",
     subtitle: "Local File Media Transformation",
-    description: "Performing video editing and conversions using local files. The agent automates tedious media processing workflows, applying filters, adjusting parameters, and converting between formats while maintaining quality.",
+    description: "Performing video editing and conversions using local files. The agent automates tedious media processing workflows, applying filters, adjusting parameters, and converting between formats on the fly, while showing the updated versions to the user in the interface for feedback and revisions.",
     videoSrc: mediaMaster
   },
   {
     id: "kaggle-data-science-house-prices",
     icon: faChartLine,
-    title: "Kaggle Bot - Your Data Science Consultant",
+    title: "🧠 Kaggle Bot - Your Data Science Consultant",
     subtitle: "Self-Improving Predictive Models",
-    description: "Automated ML model creation for house price prediction, with self-improvement and iteration on models. The agent applies feature engineering, hyperparameter tuning, and cross-validation to achieve optimal performance.",
+    description: "Automated ML model creation for house price prediction, with self-improvement and iteration on models. The agent applies feature engineering, hyperparameter tuning, and cross-validation to achieve optimal performance.  It displays graphs to the user as it goes to help them to understand the tendencies of the data and the reasons for the model selection.",
     videoSrc: kaggleDataScience
   },
 ];
 
 const Examples: React.FC = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const handleVideoClick = (videoSrc: string) => {
+    if (isMobile) {
+      setSelectedVideo(videoSrc);
+      setOpenModal(true);
+    }
+  };
+  
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedVideo(null);
+  };
   
   return (
     <Section id="examples">
@@ -204,7 +256,7 @@ const Examples: React.FC = () => {
       <ScrollContainer>
         {examples.map((example) => (
           <VideoCard key={example.id} elevation={2}>
-            <VideoContainer>
+            <VideoContainer onClick={() => handleVideoClick(example.videoSrc)}>
               <VideoElement
                 src={example.videoSrc}
                 muted
@@ -233,6 +285,27 @@ const Examples: React.FC = () => {
           </VideoCard>
         ))}
       </ScrollContainer>
+      
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="video-modal"
+        aria-describedby="expanded video view"
+      >
+        <ModalContent>
+          <CloseButton onClick={handleCloseModal}>
+            <FontAwesomeIcon icon={faTimes} />
+          </CloseButton>
+          {selectedVideo && (
+            <ModalVideo
+              src={selectedVideo}
+              controls
+              autoPlay
+              playsInline
+            />
+          )}
+        </ModalContent>
+      </Modal>
     </Section>
   );
 };
