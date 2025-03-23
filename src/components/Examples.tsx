@@ -9,9 +9,10 @@ import {
   faMoneyBillWave, 
   faVideo, 
   faLightbulb,
-  faTimes
+  faTimes,
+  faPlay
 } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 // Import video assets
 import coderSpaceInvaders from "../assets/coder-space-invaders.mov";
@@ -67,7 +68,7 @@ const VideoContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-const VideoElement = styled("video")(() => ({
+const VideoElement = styled("video")(({ theme }) => ({
   position: "absolute",
   top: 0,
   left: 0,
@@ -75,6 +76,51 @@ const VideoElement = styled("video")(() => ({
   height: "100%",
   objectFit: "cover",
   transition: "transform 0.5s ease",
+  [theme.breakpoints.down('md')]: {
+    opacity: 0, // Hide video on mobile until it's loaded
+  }
+}));
+
+const VideoPlaceholder = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: theme.palette.mode === 'dark' 
+    ? 'rgba(20, 20, 20, 0.7)' 
+    : 'rgba(245, 245, 250, 0.7)',
+  backdropFilter: 'blur(4px)',
+  borderRadius: "8px 8px 0 0",
+  color: theme.palette.primary.main,
+  transition: "opacity 0.3s ease",
+}));
+
+const PlayIcon = styled(Box)(({ theme }) => ({
+  width: 60,
+  height: 60,
+  borderRadius: "50%",
+  backgroundColor: theme.palette.primary.main,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginBottom: theme.spacing(2),
+  boxShadow: "0 4px 12px rgba(56, 201, 106, 0.3)",
+  color: theme.palette.primary.contrastText,
+  "& svg": {
+    fontSize: "1.5rem",
+    marginLeft: 4, // Slight offset for play icon
+  }
+}));
+
+const PlaceholderText = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  color: theme.palette.text.primary,
+  textShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
 }));
 
 const IconOverlay = styled(Box)(({ theme }) => ({
@@ -229,20 +275,121 @@ const examples = [
 const Examples: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [loadedVideos, setLoadedVideos] = useState<Record<string, boolean>>({});
+  const [visibleVideos, setVisibleVideos] = useState<Record<string, boolean>>({});
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const videoContainerRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const splashPassedRef = useRef(false);
 
-  const handleVideoClick = (videoSrc: string) => {
+  // Function to handle video loading - using useCallback to avoid dependency issues
+  const handleVideoLoad = useCallback((videoId: string) => {
+    setLoadedVideos(prev => ({ ...prev, [videoId]: true }));
+  }, []);
+
+  // Function to handle video click
+  const handleVideoClick = useCallback((videoSrc: string, videoId: string) => {
     if (isMobile) {
-      setSelectedVideo(videoSrc);
-      setOpenModal(true);
+      // If video is not loaded yet, load it
+      if (!loadedVideos[videoId] && videoRefs.current[videoId]) {
+        const videoElement = videoRefs.current[videoId];
+        if (videoElement) {
+          videoElement.style.opacity = '1';
+          videoElement.load();
+          handleVideoLoad(videoId);
+        }
+      } else {
+        // If already loaded, open in modal
+        setSelectedVideo(videoSrc);
+        setOpenModal(true);
+      }
     }
-  };
+  }, [isMobile, loadedVideos, handleVideoLoad]);
   
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setOpenModal(false);
     setSelectedVideo(null);
-  };
+  }, []);
+
+  // Set up intersection observer to detect when videos are visible
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.01,
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      for (const entry of entries) {
+        const videoId = entry.target.getAttribute('data-video-id');
+        if (videoId) {
+          if (entry.isIntersecting) {
+            setVisibleVideos(prev => ({ ...prev, [videoId]: true }));
+          }
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+    
+    // Observe all video containers
+    for (const [_, ref] of Object.entries(videoContainerRefs.current)) {
+      if (ref) observer.observe(ref);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Check if user has scrolled past splash page and start loading videos
+  useEffect(() => {
+    const handleScroll = () => {
+      // Consider splash page height to be 100vh
+      if (window.scrollY > window.innerHeight * 0.7 && !splashPassedRef.current) {
+        splashPassedRef.current = true;
+        
+        // Start loading all videos in order (top to bottom)
+        for (const example of examples) {
+          const videoId = example.id;
+          if (!loadedVideos[videoId] && videoRefs.current[videoId]) {
+            const videoElement = videoRefs.current[videoId];
+            if (videoElement) {
+              // Use setTimeout with a small delay to stagger loading and prioritize top videos
+              const index = examples.findIndex(ex => ex.id === videoId);
+              setTimeout(() => {
+                if (videoElement && !loadedVideos[videoId]) {
+                  videoElement.style.opacity = '1';
+                  videoElement.load();
+                  handleVideoLoad(videoId);
+                }
+              }, index * 200); // 200ms delay between each video load
+            }
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loadedVideos, handleVideoLoad]);
+
+  // Load videos when they become visible if they haven't been loaded yet
+  useEffect(() => {
+    if (splashPassedRef.current) {
+      for (const [videoId, isVisible] of Object.entries(visibleVideos)) {
+        if (isVisible && !loadedVideos[videoId] && videoRefs.current[videoId]) {
+          const videoElement = videoRefs.current[videoId];
+          if (videoElement) {
+            videoElement.style.opacity = '1';
+            videoElement.load();
+            handleVideoLoad(videoId);
+          }
+        }
+      }
+    }
+  }, [visibleVideos, loadedVideos, handleVideoLoad]);
   
   return (
     <Section id="examples">
@@ -256,16 +403,36 @@ const Examples: React.FC = () => {
       <ScrollContainer>
         {examples.map((example) => (
           <VideoCard key={example.id} elevation={2}>
-            <VideoContainer onClick={() => handleVideoClick(example.videoSrc)}>
+            <VideoContainer 
+              onClick={() => handleVideoClick(example.videoSrc, example.id)}
+              ref={(el: HTMLDivElement | null) => { 
+                if (el) videoContainerRefs.current[example.id] = el;
+              }}
+              data-video-id={example.id}
+            >
               <VideoElement
+                ref={(el: HTMLVideoElement | null) => { 
+                  if (el) videoRefs.current[example.id] = el;
+                }}
                 src={example.videoSrc}
                 muted
                 playsInline
                 loop
-                preload="metadata"
-                onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
-                onMouseLeave={(e) => (e.currentTarget as HTMLVideoElement).pause()}
+                preload="none" // Don't preload until we decide to
+                onLoadedData={() => handleVideoLoad(example.id)}
+                onMouseEnter={(e) => !isMobile && (e.currentTarget as HTMLVideoElement).play()}
+                onMouseLeave={(e) => !isMobile && (e.currentTarget as HTMLVideoElement).pause()}
               />
+              {isMobile && !loadedVideos[example.id] && (
+                <VideoPlaceholder>
+                  <PlayIcon>
+                    <FontAwesomeIcon icon={faPlay} />
+                  </PlayIcon>
+                  <PlaceholderText variant="h6">
+                    Tap to Watch
+                  </PlaceholderText>
+                </VideoPlaceholder>
+              )}
               <IconOverlay>
                 <FontAwesomeIcon icon={example.icon} />
               </IconOverlay>

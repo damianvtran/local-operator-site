@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Button, Tooltip, Grid, useMediaQuery } from "@mui/material";
+import { Box, Container, Typography, Button, Grid, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
@@ -52,8 +52,13 @@ const AnimatedPreview = styled("img")(({ theme }) => ({
     transform: 'scale(1.03) translateY(-8px)',
     filter: 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6))',
   },
-  [theme.breakpoints.up('md')]: {
-    height: 'calc(100vh - 180px)', // Reduced height to avoid touching nav bar
+  [theme.breakpoints.between('md', 'lg')]: {
+    height: 'calc(100vh - 220px)', // Adjusted height for md breakpoint
+    width: '90%', // Match width with CTA box at md breakpoint
+    maxWidth: '100%',
+  },
+  [theme.breakpoints.up('lg')]: {
+    height: 'calc(100vh - 180px)',
     width: 'auto',
   }
 }));
@@ -104,6 +109,11 @@ const GlassPanel = styled(Box)(({ theme }) => ({
   boxShadow: theme.palette.mode === 'dark'
     ? '0 10px 30px rgba(0, 0, 0, 0.3)'
     : '0 10px 30px rgba(0, 0, 0, 0.1)',
+  [theme.breakpoints.between('md', 'lg')]: {
+    padding: theme.spacing(5), // Increase padding at md breakpoint
+    maxWidth: '90%', // Limit width at md breakpoint
+    margin: '0 auto', // Center the panel
+  }
 }));
 
 const ActionButton = styled(Button)(({ theme }) => ({
@@ -143,7 +153,7 @@ const MainWrapper = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   paddingTop: theme.spacing(8),
   [theme.breakpoints.up('md')]: {
-    paddingTop: 0,
+    paddingTop: theme.spacing(10), // Add top padding at md breakpoint to prevent navigation overlap
     alignItems: 'center',
   },
   '&::before': {
@@ -293,6 +303,13 @@ const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
   margin: 'auto 0', // Center vertically
   paddingLeft: theme.spacing(0),
   paddingTop: theme.spacing(2.5), // Add top padding to shift image down by 20px
+  [theme.breakpoints.between('md', 'lg')]: {
+    paddingTop: theme.spacing(5), // Increase top padding at md breakpoint
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: theme.spacing(4), // Add margin top to move it down further
+  },
   [theme.breakpoints.up('lg')]: {
     paddingLeft: theme.spacing(2),
     paddingTop: theme.spacing(8),
@@ -362,12 +379,10 @@ const Splash: React.FC = () => {
             
             <MobilePreviewContainer>
               {/* @ts-ignore - MUI Tooltip has type issues */}
-              <Tooltip title="UI Preview of Local Operator">
-                <AnimatedPreview
-                  src={uiPreview}
-                  alt="Local Operator UI Preview"
-                />
-              </Tooltip>
+              <AnimatedPreview
+                src={uiPreview}
+                alt="Local Operator UI Preview"
+              />
             </MobilePreviewContainer>
             
             <MobileAnimatedContentWrapper delay="0.7s">
@@ -437,12 +452,10 @@ const Splash: React.FC = () => {
               <AnimatedRightContent>
                 <DesktopPreviewContainer>
                   {/* @ts-ignore - MUI Tooltip has type issues */}
-                  <Tooltip title="UI Preview of Local Operator">
-                    <AnimatedPreview
-                      src={uiPreview}
-                      alt="Local Operator UI Preview"
-                    />
-                  </Tooltip>
+                  <AnimatedPreview
+                    src={uiPreview}
+                    alt="Local Operator UI Preview"
+                  />
                 </DesktopPreviewContainer>
               </AnimatedRightContent>
             </Grid>
