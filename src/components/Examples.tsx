@@ -317,7 +317,7 @@ const Examples: React.FC = () => {
     const options = {
       root: null,
       rootMargin: '200px', // Load videos 200px before they come into view
-      threshold: 0.01,
+      threshold: 0.1,
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
