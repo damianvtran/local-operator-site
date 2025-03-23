@@ -4,7 +4,9 @@ import Section from "./Section";
 
 const MediaCard = styled(Card)(({ theme }) => ({
   display: "flex",
-  backgroundColor: theme.palette.background.paper,
+  background: theme.palette.mode === 'light'
+    ? `linear-gradient(135deg, ${theme.palette.background.paper}, rgba(245, 245, 250, 0.9))`
+    : `linear-gradient(135deg, ${theme.palette.background.paper}, rgba(30, 30, 35, 0.8))`,
   borderRadius: 16,
   overflow: "hidden",
   transition: "transform 0.2s ease-in-out",
