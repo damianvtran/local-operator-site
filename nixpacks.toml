@@ -6,9 +6,11 @@
     NPM_CONFIG_FUND = 'false' # the fund notification is also pretty useless in a production environment
     NODE_VERSION = '23.6.0' # explicitly set Node.js version to match .nvmrc
 
-# explicitly configure the Node.js provider
-[providers.node]
-    version = '23.6.0' # ensure Node.js version is set to match .nvmrc
+# explicitly configure the setup phase to use the correct Node.js version
+[phases.setup]
+    nixPkgs = [
+        "nodejs_23"  # specify Node.js 23.x package from nixpkgs
+    ]
 
 # download caddy from nix
 [phases.caddy]
