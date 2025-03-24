@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
 	AppBar,
 	Container,
@@ -92,13 +92,69 @@ const NavigationBar: React.FC = () => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 	const smallLogo = navigationLogo;
+	const [activeSection, setActiveSection] = useState<string>("");
+
+	/**
+	 * Determines which section is currently in view based on scroll position
+	 */
+	const updateActiveSection = useCallback(() => {
+		// Only track scroll on main page
+		if (window.location.pathname !== "/") {
+			// Clear active section if not on main page
+			setActiveSection("");
+			return;
+		}
+
+		// Get all sections
+		const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean);
+		
+		// If no sections found, return
+		if (sections.length === 0) return;
+
+		// Calculate which section is currently in view
+		const scrollPosition = window.scrollY + 100; // Add offset for header
+
+		// Find the current section
+		for (const section of sections) {
+			if (!section) continue;
+			
+			const sectionTop = section.offsetTop;
+			const sectionHeight = section.offsetHeight;
+			
+			if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+				setActiveSection(section.id);
+				return;
+			}
+		}
+
+		// If we're at the top of the page before any section
+		if (scrollPosition < (sections[0]?.offsetTop || 0)) {
+			setActiveSection("");
+		}
+	}, []);
+
+	// Add scroll event listener and pathname change listener
+	useEffect(() => {
+		// Check pathname on mount and clear active section if not on main page
+		if (window.location.pathname !== "/") {
+			setActiveSection("");
+		}
+
+		window.addEventListener("scroll", updateActiveSection);
+		// Initial check
+		updateActiveSection();
+		
+		return () => {
+			window.removeEventListener("scroll", updateActiveSection);
+		};
+	}, [updateActiveSection]);
 
 	/**
 	 * Handles navigation to a section
 	 * If on the main page, smoothly scrolls to the section
 	 * If on another page, navigates to the main page with the section hash
 	 */
-	const handleScroll = (sectionId: string) => {
+	const navigateToSection = (sectionId: string) => {
 		// Check if we're on the main page
 		if (window.location.pathname === "/") {
 			const section = document.getElementById(sectionId);
@@ -114,7 +170,16 @@ const NavigationBar: React.FC = () => {
 			}
 		} else {
 			// If not on the main page, navigate to the main page with the section hash
-			window.location.href = `/#${sectionId}`;
+			// Clear active section before navigating
+			setActiveSection("");
+			
+			// Use window.location.replace to ensure a full page reload
+			// This is important for the hash to be processed correctly
+			if (sectionId) {
+				window.location.replace(`/#${sectionId}`);
+			} else {
+				window.location.replace("/");
+			}
 		}
 	};
 
@@ -166,34 +231,56 @@ const NavigationBar: React.FC = () => {
 				</Box>
 				<Divider sx={{ opacity: 0.1 }} />
 				<List sx={{ p: 2 }}>
-					{navItems.map((item) => (
-						<ListItem key={item.id} disablePadding sx={{ mb: 1 }}>
-							<ListItemButton
-								onClick={() => {
-									handleScroll(item.id);
-									setDrawerOpen(false);
-								}}
-							>
-								<ListItemText
-									primary={
-										<Typography sx={{ fontWeight: 500 }}>
-											{item.label}
-										</Typography>
-									}
-								/>
-							</ListItemButton>
-						</ListItem>
-					))}
+					{navItems.map((item) => {
+						// Check if this is the current section
+						const isActive = activeSection === item.id;
+						return (
+							<ListItem key={item.id} disablePadding sx={{ mb: 1 }}>
+								<ListItemButton
+									onClick={() => {
+										navigateToSection(item.id);
+										setDrawerOpen(false);
+									}}
+									sx={{
+										"& .MuiTypography-root": {
+											color: isActive ? 'primary.main' : 'inherit',
+											fontWeight: isActive ? 600 : 500,
+										}
+									}}
+								>
+									<ListItemText
+										primary={
+											<Typography>
+												{item.label}
+											</Typography>
+										}
+									/>
+								</ListItemButton>
+							</ListItem>
+						);
+					})}
 					<Divider sx={{ my: 2, opacity: 0.1 }} />
 					<ListItem disablePadding sx={{ mb: 1 }}>
 						<ListItemButton
 							component={RouterLink}
 							to={window.location.pathname === "/privacy-policy" ? "/#privacy" : "/privacy-policy#"}
-							onClick={() => setDrawerOpen(false)}
+							onClick={(e) => {
+								if (window.location.pathname === "/privacy-policy") {
+									e.preventDefault();
+									window.scrollTo({ top: 0, behavior: "smooth" });
+								}
+								setDrawerOpen(false);
+							}}
+							sx={{
+								"& .MuiTypography-root": {
+									color: window.location.pathname === "/privacy-policy" ? 'primary.main' : 'inherit',
+									fontWeight: window.location.pathname === "/privacy-policy" ? 600 : 500,
+								}
+							}}
 						>
 							<ListItemText
 								primary={
-									<Typography sx={{ fontWeight: 500 }}>
+									<Typography>
 										Privacy Policy
 									</Typography>
 								}
@@ -204,11 +291,23 @@ const NavigationBar: React.FC = () => {
 						<ListItemButton
 							component={RouterLink}
 							to={window.location.pathname === "/terms-and-conditions" ? "/#terms" : "/terms-and-conditions#"}
-							onClick={() => setDrawerOpen(false)}
+							onClick={(e) => {
+								if (window.location.pathname === "/terms-and-conditions") {
+									e.preventDefault();
+									window.scrollTo({ top: 0, behavior: "smooth" });
+								}
+								setDrawerOpen(false);
+							}}
+							sx={{
+								"& .MuiTypography-root": {
+									color: window.location.pathname === "/terms-and-conditions" ? 'primary.main' : 'inherit',
+									fontWeight: window.location.pathname === "/terms-and-conditions" ? 600 : 500,
+								}
+							}}
 						>
 							<ListItemText
 								primary={
-									<Typography sx={{ fontWeight: 500 }}>
+									<Typography>
 										Terms & Conditions
 									</Typography>
 								}
@@ -241,16 +340,24 @@ const NavigationBar: React.FC = () => {
 								</RouterLink>
 							</Box>
 							{!isMobile &&
-								navItems.map((item) => (
-									<Button
-										key={item.id}
-										onClick={() => handleScroll(item.id)}
-										size="small"
-										variant="nav"
-									>
-										{item.label}
-									</Button>
-								))}
+								navItems.map((item) => {
+									// Check if this is the current section
+									const isActive = activeSection === item.id;
+									return (
+										<Button
+											key={item.id}
+											onClick={() => navigateToSection(item.id)}
+											size="small"
+											variant="nav"
+											sx={{
+												color: isActive ? 'primary.main' : 'inherit',
+												fontWeight: isActive ? 600 : 400,
+											}}
+										>
+											{item.label}
+										</Button>
+									);
+								})}
 							{isMobile && (
 								<IconButton
 									edge="end"
