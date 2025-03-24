@@ -2,23 +2,8 @@ import { Box, Container, Typography, Paper, Divider, useTheme, alpha } from "@mu
 import { styled } from "@mui/material/styles";
 import { SEO } from "./seo";
 import { useEffect } from "react";
-
-/**
- * Type definition for a section in a legal document
- */
-export type LegalSection = {
-  /** The title of the section */
-  title: string;
-  /** The content of the section, can be a string or JSX */
-  content: React.ReactNode;
-  /** Optional subsections */
-  subsections?: Array<{
-    /** The title of the subsection */
-    title: string;
-    /** The content of the subsection, can be a string or JSX */
-    content: React.ReactNode;
-  }>;
-};
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 /**
  * Props for the LegalDocument component
@@ -32,8 +17,8 @@ export type LegalDocumentProps = {
   seoTitle: string;
   /** SEO description for the page */
   seoDescription: string;
-  /** The sections of the legal document */
-  sections: LegalSection[];
+  /** The markdown content to render */
+  markdown: string;
   /** Optional contact email for inquiries */
   contactEmail?: string;
 };
@@ -115,6 +100,96 @@ const DocumentFooter = styled(Box)(({ theme }) => ({
   borderTop: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
 }));
 
+
+/**
+ * Styled component for markdown content
+ */
+const MarkdownContent = styled(Box)(({ theme }) => ({
+  '& h1, & h2, & h3, & h4, & h5, & h6': {
+    color: theme.palette.primary.main,
+    position: 'relative',
+    paddingBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      width: '40px',
+      height: '3px',
+      background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+      borderRadius: theme.spacing(0.5),
+    },
+  },
+  '& h1': {
+    fontSize: '2rem',
+    marginTop: theme.spacing(4),
+  },
+  '& h2': {
+    fontSize: '1.75rem',
+  },
+  '& h3': {
+    fontSize: '1.5rem',
+  },
+  '& h4': {
+    fontSize: '1.25rem',
+  },
+  '& h5': {
+    fontSize: '1.1rem',
+  },
+  '& h6': {
+    fontSize: '1rem',
+  },
+  '& p': {
+    marginBottom: theme.spacing(2),
+    whiteSpace: 'pre-wrap',
+  },
+  '& ul, & ol': {
+    paddingLeft: theme.spacing(4),
+    marginBottom: theme.spacing(2),
+  },
+  '& li': {
+    marginBottom: theme.spacing(1),
+  },
+  '& a': {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  '& blockquote': {
+    borderLeft: `4px solid ${alpha(theme.palette.primary.main, 0.5)}`,
+    paddingLeft: theme.spacing(2),
+    margin: theme.spacing(2, 0),
+    fontStyle: 'italic',
+  },
+  '& code': {
+    fontFamily: 'monospace',
+    backgroundColor: alpha(theme.palette.background.paper, 0.2),
+    padding: theme.spacing(0.5),
+    borderRadius: theme.spacing(0.5),
+  },
+  '& pre': {
+    backgroundColor: alpha(theme.palette.background.paper, 0.2),
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+    overflowX: 'auto',
+    marginBottom: theme.spacing(2),
+    '& code': {
+      backgroundColor: 'transparent',
+      padding: 0,
+    },
+  },
+  '& hr': {
+    border: 'none',
+    height: '1px',
+    backgroundColor: alpha(theme.palette.common.white, 0.1),
+    margin: theme.spacing(3, 0),
+  },
+}));
+
 /**
  * LegalDocument component - A reusable component for displaying legal documents
  * such as Privacy Policy and Terms & Conditions with a sleek, modern design
@@ -124,8 +199,8 @@ export const LegalDocument: React.FC<LegalDocumentProps> = ({
   effectiveDate,
   seoTitle,
   seoDescription,
-  sections,
   contactEmail,
+  markdown,
 }) => {
   const theme = useTheme();
   
@@ -176,37 +251,11 @@ export const LegalDocument: React.FC<LegalDocumentProps> = ({
             />
           </DocumentHeader>
 
-          {sections.map((section) => (
-            <Box key={section.title}>
-              <SectionHeading variant="h4">
-                {section.title}
-              </SectionHeading>
-              
-              {typeof section.content === 'string' ? (
-                <Typography variant="body1" paragraph>
-                  {section.content}
-                </Typography>
-              ) : (
-                section.content
-              )}
-              
-              {section.subsections?.map((subsection) => (
-                <Box key={subsection.title} sx={{ ml: { xs: 0, sm: 2 } }}>
-                  <SubsectionHeading variant="h5">
-                    {subsection.title}
-                  </SubsectionHeading>
-                  
-                  {typeof subsection.content === 'string' ? (
-                    <Typography variant="body1" paragraph>
-                      {subsection.content}
-                    </Typography>
-                  ) : (
-                    subsection.content
-                  )}
-                </Box>
-              ))}
-            </Box>
-          ))}
+          <MarkdownContent>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {markdown}
+            </ReactMarkdown>
+          </MarkdownContent>
 
           {contactEmail && (
             <Box sx={{ mt: 4, textAlign: 'center' }}>
