@@ -43,7 +43,7 @@ const AnimatedPreview = styled("img")(({ theme }) => ({
   opacity: 0,
   height: 'auto', // Reduced height to ensure proper spacing
   width: '110%',
-  objectFit: 'contain', // Maintain aspect ratio
+  objectFit: 'contain',
   filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5))',
   transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out',
   borderRadius: '16px',
@@ -53,7 +53,6 @@ const AnimatedPreview = styled("img")(({ theme }) => ({
     filter: 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6))',
   },
   [theme.breakpoints.between('md', 'lg')]: {
-    height: 'calc(100vh - 220px)', // Adjusted height for md breakpoint
     width: '90%', // Match width with CTA box at md breakpoint
     maxWidth: '100%',
   },
