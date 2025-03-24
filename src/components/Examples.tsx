@@ -1,5 +1,5 @@
 import { Typography, Box, Card, CardContent, Modal, IconButton, useMediaQuery } from "@mui/material";
-import Section from "./Section";
+import { Section } from "./section";
 import { styled, useTheme } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -272,7 +272,7 @@ const examples = [
   },
 ];
 
-const Examples: React.FC = () => {
+export const Examples: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [loadedVideos, setLoadedVideos] = useState<Record<string, boolean>>({});
@@ -514,5 +514,3 @@ const Examples: React.FC = () => {
     </Section>
   );
 };
-
-export default Examples;

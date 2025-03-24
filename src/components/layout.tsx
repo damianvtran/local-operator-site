@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import NavigationBar from "./NavigationBar";
-import Footer from "./Footer";
+import NavigationBar from "./navigation-bar";
+import { Footer } from "./footer";
 import { Outlet } from "react-router-dom";
 
 /**

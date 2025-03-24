@@ -7,7 +7,7 @@ import { keyframes } from "@emotion/react";
 import { useGithubRelease } from "../hooks/use-github-release";
 // @ts-ignore - MUI Tooltip has type issues
 import { Tooltip } from "@mui/material";
-import { trackEvent } from "./GoogleAnalytics";
+import { trackEvent } from "./google-analytics";
 
 const pulse = keyframes`
   0% {

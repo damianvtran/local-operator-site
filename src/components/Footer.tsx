@@ -75,7 +75,7 @@ const FooterRouterLink = styled(RouterLink)(({ theme }) => ({
 /**
  * Footer component that appears at the bottom of all pages
  */
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
 	const theme = useTheme();
 	const smallLogo = theme.palette.mode === 'dark'
 		? loLogoDarkMode
@@ -151,5 +151,3 @@ const Footer: React.FC = () => {
 		</FooterContainer>
 	);
 };
-
-export default Footer;

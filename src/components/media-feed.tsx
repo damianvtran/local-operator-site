@@ -1,6 +1,6 @@
 import { Typography, Box, Card, CardMedia, CardContent, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Section from "./Section";
+import { Section } from "./section";
 
 const MediaCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -156,7 +156,7 @@ const mediaItems = [
   },
 ];
 
-const MediaFeed: React.FC = () => {
+export const MediaFeed: React.FC = () => {
   return (
     <StyledSection id="media-feed">
       <Typography variant="h3" component="h2" gutterBottom>
@@ -234,5 +234,3 @@ const MediaFeed: React.FC = () => {
     </StyledSection>
   );
 };
-
-export default MediaFeed;

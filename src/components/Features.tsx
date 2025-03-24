@@ -1,5 +1,5 @@
 import { Typography, Grid, Card, CardContent, Box } from "@mui/material";
-import Section from "./Section";
+import Section from "./section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
@@ -47,7 +47,7 @@ const FeatureBody = styled(Typography)(({ theme }) => ({
 	lineHeight: 1.6,
 }));
 
-const Features: React.FC = () => {
+export const Features: React.FC = () => {
 	return (
 		<Section id="features">
 			<Typography variant="h3" component="h2" gutterBottom>
@@ -151,5 +151,3 @@ const Features: React.FC = () => {
 		</Section>
 	);
 };
-
-export default Features;

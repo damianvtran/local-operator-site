@@ -15,7 +15,7 @@ import favicon96 from "@assets/favicon-96x96.png";
 import favicon16 from "@assets/favicon-16x16.png";
 import msIcon144 from "@assets/ms-icon-144x144.png";
 
-const Favicons: React.FC = () => {
+export const Favicons: React.FC = () => {
   return (
     <Helmet>
       <link rel="apple-touch-icon" sizes="57x57" href={appleIcon57} />
@@ -38,5 +38,3 @@ const Favicons: React.FC = () => {
     </Helmet>
   );
 };
-
-export default Favicons; 

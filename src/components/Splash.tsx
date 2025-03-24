@@ -329,7 +329,7 @@ const LearnMoreButtonIconContainer = styled(Box)({
   gap: 8
 });
 
-const Splash: React.FC = () => {
+export const Splash: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
@@ -468,5 +468,3 @@ const Splash: React.FC = () => {
     </MainWrapper>
   );
 };
-
-export default Splash;

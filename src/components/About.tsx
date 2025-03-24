@@ -3,7 +3,7 @@ import type { ButtonProps } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faLaptop, faBrain } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import Section from "./Section";
+import { Section } from "./section";
 import { styled } from "@mui/material/styles";
 
 const HighlightBox = styled(Box)(({ theme }) => ({
@@ -48,7 +48,7 @@ const ActionButton = styled(Button)<ButtonProps<"a">>(({ theme }) => ({
 	}
 }));
 
-const About: React.FC = () => {
+export const About: React.FC = () => {
 	return (
 		<Section id="about">
 			<Container maxWidth="lg">
@@ -128,5 +128,3 @@ const About: React.FC = () => {
 		</Section>
 	);
 };
-
-export default About;

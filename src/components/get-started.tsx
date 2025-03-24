@@ -1,6 +1,6 @@
 import { Typography, Button, Box, Paper, Container, useMediaQuery } from "@mui/material";
 import type { ButtonProps } from "@mui/material";
-import Section from "./Section";
+import { Section } from "./section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -51,7 +51,7 @@ const MobileNotice = styled(Box)(({ theme }) => ({
 	marginBottom: theme.spacing(2)
 }));
 
-const GetStarted: React.FC = () => {
+export const GetStarted: React.FC = () => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -117,4 +117,3 @@ const GetStarted: React.FC = () => {
 	);
 };
 
-export default GetStarted;

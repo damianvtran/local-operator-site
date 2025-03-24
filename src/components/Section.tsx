@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const Section = styled(Box)<BoxProps>(({ theme }) => ({
+export const Section = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(10, 8),
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(8, 6),
@@ -22,5 +22,3 @@ const Section = styled(Box)<BoxProps>(({ theme }) => ({
   overflow: "hidden",
   border: "1px solid rgba(255, 255, 255, 0.05)"
 }));
-
-export default Section; 

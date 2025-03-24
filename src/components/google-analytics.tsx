@@ -21,7 +21,7 @@ export const trackEvent = (eventName: string, eventParams?: Record<string, unkno
   }
 };
 
-const GoogleAnalytics: React.FC = () => {
+export const GoogleAnalytics: React.FC = () => {
   return (
     <Helmet>
       <script
@@ -39,5 +39,3 @@ const GoogleAnalytics: React.FC = () => {
     </Helmet>
   );
 };
-
-export default GoogleAnalytics;

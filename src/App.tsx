@@ -1,11 +1,11 @@
-import About from "@components/About";
-import Splash from "@components/Splash";
-import Features from "@components/Features";
-import GetStarted from "@components/GetStarted";
-import Examples from "@components/Examples";
-import SEO from "@components/SEO";
-import GoogleAnalytics from "@components/GoogleAnalytics";
-import MediaFeed from "@components/MediaFeed";
+import { About } from "@components/about";
+import { Splash } from "@components/splash";
+import { Features } from "@components/features";
+import { GetStarted } from "@components/get-started";
+import { Examples } from "@components/examples";
+import { SEO } from "@components/seo";
+import { GoogleAnalytics } from "@components/google-analytics";
+import { MediaFeed } from "@components/media-feed";
 import { Box, Container, Link } from "@mui/material";
 
 const App: React.FC = () => {

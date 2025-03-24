@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import SEO from "./SEO";
+import { SEO } from "./seo";
 
 /**
  * Styled component for the policy content container

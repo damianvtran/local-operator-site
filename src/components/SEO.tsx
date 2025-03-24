@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import Favicons from "./Favicons";
+import { Favicons } from "./favicons";
 
 interface SEOProps {
   title?: string;
@@ -8,7 +8,7 @@ interface SEOProps {
   image?: string;
 }
 
-const SEO: React.FC<SEOProps> = ({
+export const SEO: React.FC<SEOProps> = ({
   description = "Local Operator is a Python-based on-device agent that executes commands through a chat interface. Supports code safety verification, goal-driven execution, and local models with Ollama.",
   url = "https://local-operator.com",
 }) => {
@@ -39,5 +39,3 @@ const SEO: React.FC<SEOProps> = ({
     </>
   );
 };
-
-export default SEO; 
