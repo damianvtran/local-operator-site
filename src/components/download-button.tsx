@@ -7,6 +7,7 @@ import { keyframes } from "@emotion/react";
 import { useGithubRelease } from "../hooks/use-github-release";
 // @ts-ignore - MUI Tooltip has type issues
 import { Tooltip } from "@mui/material";
+import { trackEvent } from "./GoogleAnalytics";
 
 const pulse = keyframes`
   0% {
@@ -204,11 +205,49 @@ export const DownloadButton: React.FC<DownloadButtonProps> = ({
     );
   };
   
+  /**
+   * Initiates a download without navigating away from the current page
+   * @param url - The URL to download
+   */
+  const initiateDownload = (url: string) => {
+    // Create a hidden anchor element
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = ''; // This tells the browser to download the file
+    downloadLink.style.display = 'none';
+    
+    // Add to the DOM, click it, and remove it
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
+  // Handle click event to track downloads with Google Analytics
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Prevent default navigation
+    event.preventDefault();
+    
+    // Track the download event
+    trackEvent('download', {
+      os: os.name,
+      version: version || 'unknown',
+      download_url: finalHref,
+    });
+    
+    // Initiate the download programmatically
+    initiateDownload(finalHref);
+    
+    // Call the user-provided onClick handler if it exists
+    if (props.onClick) {
+      props.onClick(event);
+    }
+  };
+  
   return (
     <StyledDownloadButton
       href={finalHref}
-      target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
+      onClick={handleClick}
       style={{
         width: fullWidth ? '100%' : 'auto',
         position: 'relative',
