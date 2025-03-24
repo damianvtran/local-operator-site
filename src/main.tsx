@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
+import { App } from "./app";
 import { ThemeProvider } from "@mui/material/styles";
 import { HelmetProvider } from "react-helmet-async";
 import CssBaseline from "@mui/material/CssBaseline";

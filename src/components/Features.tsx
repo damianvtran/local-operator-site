@@ -1,5 +1,5 @@
 import { Typography, Grid, Card, CardContent, Box } from "@mui/material";
-import Section from "./section";
+import { Section } from "./section";
 import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 

@@ -8,7 +8,7 @@ import { GoogleAnalytics } from "@components/google-analytics";
 import { MediaFeed } from "@components/media-feed";
 import { Box, Container, Link } from "@mui/material";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <>
       <Link
