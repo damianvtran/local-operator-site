@@ -60,37 +60,6 @@ const DocumentHeader = styled(Box)(({ theme }) => ({
 }));
 
 /**
- * Styled component for section headings with enhanced visual appeal
- */
-const SectionHeading = styled(Typography)(({ theme }) => ({
-  marginTop: theme.spacing(4),
-  marginBottom: theme.spacing(2),
-  color: theme.palette.primary.main,
-  position: 'relative',
-  paddingBottom: theme.spacing(1),
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '40px',
-    height: '3px',
-    background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-    borderRadius: theme.spacing(0.5),
-  },
-}));
-
-/**
- * Styled component for subsection headings
- */
-const SubsectionHeading = styled(Typography)(({ theme }) => ({
-  marginTop: theme.spacing(3),
-  marginBottom: theme.spacing(1.5),
-  color: theme.palette.text.primary,
-  fontWeight: 500,
-}));
-
-/**
  * Styled component for the document footer
  */
 const DocumentFooter = styled(Box)(({ theme }) => ({
