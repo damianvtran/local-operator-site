@@ -33,6 +33,8 @@ export const App: React.FC = () => {
         <GoogleAnalytics />
         <Splash />
         <Container sx={{ my: 4 }}>
+          <Box id="privacy" sx={{ position: "absolute", top: "-80px" }} />
+          <Box id="terms" sx={{ position: "absolute", top: "-80px" }} />
           <About />
           <Examples />
           <Features />

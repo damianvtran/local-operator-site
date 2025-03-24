@@ -335,24 +335,8 @@ export const Splash: React.FC = () => {
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
 
   const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      const headerOffset = 80;
-      const elementPosition = aboutSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-      
-      setTimeout(() => {
-        aboutSection.tabIndex = -1;
-        aboutSection.focus();
-      }, 1000);
-    }
+    window.location.href = "/#about";
   };
-
   return (
     <MainWrapper>
       <ContentContainer maxWidth="lg">

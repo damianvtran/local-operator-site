@@ -93,10 +93,28 @@ const NavigationBar: React.FC = () => {
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 	const smallLogo = navigationLogo;
 
+	/**
+	 * Handles navigation to a section
+	 * If on the main page, smoothly scrolls to the section
+	 * If on another page, navigates to the main page with the section hash
+	 */
 	const handleScroll = (sectionId: string) => {
-		const section = document.getElementById(sectionId);
-		if (section) {
-			section.scrollIntoView({ behavior: "smooth" });
+		// Check if we're on the main page
+		if (window.location.pathname === "/") {
+			const section = document.getElementById(sectionId);
+			if (section) {
+				const headerOffset = 80;
+				const elementPosition = section.getBoundingClientRect().top;
+				const offsetPosition = elementPosition + window.scrollY - headerOffset;
+				
+				window.scrollTo({
+					top: offsetPosition,
+					behavior: "smooth"
+				});
+			}
+		} else {
+			// If not on the main page, navigate to the main page with the section hash
+			window.location.href = `/#${sectionId}`;
 		}
 	};
 
@@ -133,7 +151,7 @@ const NavigationBar: React.FC = () => {
 						gap: 2,
 					}}
 				>
-					<RouterLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 2 }} onClick={() => setDrawerOpen(false)}>
+					<RouterLink to="/#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 2 }} onClick={() => setDrawerOpen(false)}>
 						<LogoImage
 							src={smallLogo}
 							alt="Local Operator Logo"
@@ -170,7 +188,7 @@ const NavigationBar: React.FC = () => {
 					<ListItem disablePadding sx={{ mb: 1 }}>
 						<ListItemButton
 							component={RouterLink}
-							to="/privacy-policy"
+							to={window.location.pathname === "/privacy-policy" ? "/#privacy" : "/privacy-policy#"}
 							onClick={() => setDrawerOpen(false)}
 						>
 							<ListItemText
@@ -185,7 +203,7 @@ const NavigationBar: React.FC = () => {
 					<ListItem disablePadding sx={{ mb: 1 }}>
 						<ListItemButton
 							component={RouterLink}
-							to="/terms-and-conditions"
+							to={window.location.pathname === "/terms-and-conditions" ? "/#terms" : "/terms-and-conditions#"}
 							onClick={() => setDrawerOpen(false)}
 						>
 							<ListItemText
@@ -209,7 +227,7 @@ const NavigationBar: React.FC = () => {
 					<Container maxWidth="lg">
 						<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
 							<Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-								<RouterLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+								<RouterLink to="/#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
 									<LogoImage
 										src={smallLogo}
 										alt="Local Operator Logo"
