@@ -1,6 +1,7 @@
-import { Box, Container, Typography, Grid, Link } from "@mui/material";
+import { Box, Container, Typography, Grid, Link as MuiLink } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
+import { Link as RouterLink } from "react-router-dom";
 import loLogoDarkMode from '@assets/lo-logo-dark-mode.png';
 import loLogoLightMode from '@assets/lo-logo-light-mode.png';
 
@@ -23,9 +24,18 @@ const LogoImage = styled('img')({
 	},
 });
 
-const FooterLink = styled(Link)(({ theme }) => ({
+const FooterLink = styled(MuiLink)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 	textDecoration: 'none',
+	'&:hover': {
+		color: theme.palette.primary.main,
+	},
+}));
+
+const FooterRouterLink = styled(RouterLink)(({ theme }) => ({
+	color: theme.palette.text.secondary,
+	textDecoration: 'none',
+	margin: theme.spacing(0, 2),
 	'&:hover': {
 		color: theme.palette.primary.main,
 	},
@@ -53,6 +63,10 @@ const Footer: React.FC = () => {
 							<FooterLink href="#features" sx={{ mx: 2 }}>Features</FooterLink>
 							<FooterLink href="#examples" sx={{ mx: 2 }}>Examples</FooterLink>
 							<FooterLink href="#getstarted" sx={{ mx: 2 }}>Get Started</FooterLink>
+						</Box>
+						<Box sx={{ mb: 2 }}>
+							<FooterRouterLink to="/privacy-policy">Privacy Policy</FooterRouterLink>
+							<FooterRouterLink to="/terms-and-conditions">Terms & Conditions</FooterRouterLink>
 						</Box>
 						<Typography variant="body2" color="text.secondary">
 							&copy; {new Date().getFullYear()} Local Operator. All rights reserved.

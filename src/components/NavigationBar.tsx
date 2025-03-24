@@ -19,7 +19,8 @@ import {
 import { useTheme, styled, keyframes } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import navigationLogo from "@assets/apple-icon-180x180.png"
+import navigationLogo from "@assets/apple-icon-180x180.png";
+import { Link as RouterLink } from "react-router-dom";
 
 const navItems = [
 	{ id: "about", label: "About" },
@@ -132,16 +133,18 @@ const NavigationBar: React.FC = () => {
 						gap: 2,
 					}}
 				>
-					<LogoImage
-						src={smallLogo}
-						alt="Local Operator Logo"
-						expanded={true}
-						width={32}
-						height={32}
-					/>
-					<Typography variant="gradientTitle">
-						Local Operator
-					</Typography>
+					<RouterLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 2 }} onClick={() => setDrawerOpen(false)}>
+						<LogoImage
+							src={smallLogo}
+							alt="Local Operator Logo"
+							expanded={true}
+							width={32}
+							height={32}
+						/>
+						<Typography variant="gradientTitle">
+							Local Operator
+						</Typography>
+					</RouterLink>
 				</Box>
 				<Divider sx={{ opacity: 0.1 }} />
 				<List sx={{ p: 2 }}>
@@ -163,6 +166,37 @@ const NavigationBar: React.FC = () => {
 							</ListItemButton>
 						</ListItem>
 					))}
+					<Divider sx={{ my: 2, opacity: 0.1 }} />
+					<ListItem disablePadding sx={{ mb: 1 }}>
+						<ListItemButton
+							component={RouterLink}
+							to="/privacy-policy"
+							onClick={() => setDrawerOpen(false)}
+						>
+							<ListItemText
+								primary={
+									<Typography sx={{ fontWeight: 500 }}>
+										Privacy Policy
+									</Typography>
+								}
+							/>
+						</ListItemButton>
+					</ListItem>
+					<ListItem disablePadding sx={{ mb: 1 }}>
+						<ListItemButton
+							component={RouterLink}
+							to="/terms-and-conditions"
+							onClick={() => setDrawerOpen(false)}
+						>
+							<ListItemText
+								primary={
+									<Typography sx={{ fontWeight: 500 }}>
+										Terms & Conditions
+									</Typography>
+								}
+							/>
+						</ListItemButton>
+					</ListItem>
 				</List>
 			</Box>
 		</nav>
@@ -174,16 +208,20 @@ const NavigationBar: React.FC = () => {
 				<StaticAppBar position="fixed">
 					<Container maxWidth="lg">
 						<Toolbar sx={{ minHeight: { xs: 56, sm: 80 } }}>
-							<LogoImage
-								src={smallLogo}
-								alt="Local Operator Logo"
-								expanded={true}
-								width={40}
-								height={40}
-							/>
-							<Typography variant="gradientTitle" sx={{ flexGrow: 1 }}>
-								Local Operator
-							</Typography>
+							<Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+								<RouterLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+									<LogoImage
+										src={smallLogo}
+										alt="Local Operator Logo"
+										expanded={true}
+										width={40}
+										height={40}
+									/>
+									<Typography variant="gradientTitle">
+										Local Operator
+									</Typography>
+								</RouterLink>
+							</Box>
 							{!isMobile &&
 								navItems.map((item) => (
 									<Button

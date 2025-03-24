@@ -3,8 +3,6 @@ import Splash from "@components/Splash";
 import Features from "@components/Features";
 import GetStarted from "@components/GetStarted";
 import Examples from "@components/Examples";
-import Footer from "@components/Footer";
-import NavigationBar from "@components/NavigationBar";
 import SEO from "@components/SEO";
 import GoogleAnalytics from "@components/GoogleAnalytics";
 import MediaFeed from "@components/MediaFeed";
@@ -33,18 +31,14 @@ const App: React.FC = () => {
       <Box>
         <SEO />
         <GoogleAnalytics />
-        <NavigationBar />
         <Splash />
-        <main id="main-content">
-          <Container sx={{ my: 4 }}>
-            <About />
-            <Examples />
-            <Features />
-            <GetStarted />
-            <MediaFeed />
-          </Container>
-        </main>
-        <Footer />
+        <Container sx={{ my: 4 }}>
+          <About />
+          <Examples />
+          <Features />
+          <GetStarted />
+          <MediaFeed />
+        </Container>
       </Box>
     </>
   );
