@@ -152,9 +152,12 @@ const MainWrapper = styled(Box)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',
   paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('md')]: {
-    paddingTop: theme.spacing(10), // Add top padding at md breakpoint to prevent navigation overlap
+  [theme.breakpoints.between('md', 'lg')]: {
+    paddingTop: theme.spacing(10), // Add top padding at md-lg breakpoints to prevent navigation overlap
     alignItems: 'center',
+  },
+  [theme.breakpoints.up('lg')]: {
+    paddingTop: theme.spacing(4),
   },
   '&::before': {
     content: '""',
@@ -316,6 +319,7 @@ const DesktopPreviewContainer = styled(Box)(({ theme }) => ({
     paddingRight: theme.spacing(4),
     justifyContent: 'flex-start',
     height: 'calc(100vh - 160px)', // Reduced height to avoid touching nav bar
+    marginTop: 0,
   }
 }));
 

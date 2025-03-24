@@ -10,11 +10,15 @@ import { useTheme } from "@mui/material/styles";
 
 const InstallBox = styled(Paper)(({ theme }) => ({
 	padding: theme.spacing(3),
-	backgroundColor: theme.palette.background.paper,
+	background: `linear-gradient(145deg, ${theme.palette.background.paper} 0%, rgba(16, 19, 23, 0.95) 100%)`,
+	boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.2)',
 	borderRadius: 16,
 	marginBottom: theme.spacing(4),
+	border: '1px solid rgba(56, 201, 106, 0.05)',
+	position: 'relative',
+	overflow: 'hidden',
 	'& code': {
-		backgroundColor: theme.palette.background.default,
+		backgroundColor: 'rgba(10, 10, 10, 0.8)',
 		padding: theme.spacing(2),
 		borderRadius: 8,
 		display: 'block',
