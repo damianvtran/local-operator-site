@@ -41,7 +41,7 @@ export const PrivacyPolicy: React.FC = () => {
         title="Privacy Policy | Local Operator"
         description="Privacy Policy for Local Operator - Learn how we collect, use, and protect your personal information."
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ paddingTop: "64px" }}>
         <PolicyContainer>
           <Typography variant="h3" component="h1" gutterBottom align="center">
             Privacy Policy

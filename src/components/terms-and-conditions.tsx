@@ -33,7 +33,7 @@ export const TermsAndConditions: React.FC = () => {
         title="Terms and Conditions | Local Operator"
         description="Terms and Conditions for Local Operator - Learn about the terms governing your use of our services."
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ paddingTop: "64px" }}>
         <PolicyContainer>
           <Typography variant="h3" component="h1" gutterBottom align="center">
             Terms and Conditions

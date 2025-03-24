@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import NavigationBar from "./navigation-bar";
 import { Footer } from "./footer";
 import { Outlet } from "react-router-dom";
-
 /**
  * Layout component that provides a consistent structure for all pages
  * Includes the navigation bar, main content area, and footer
