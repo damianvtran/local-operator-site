@@ -6,10 +6,11 @@
     NPM_CONFIG_FUND = 'false' # the fund notification is also pretty useless in a production environment
     NODE_VERSION = '23.6.0' # explicitly set Node.js version to match .nvmrc
 
-# explicitly configure the setup phase to use the correct Node.js version
+# explicitly configure the setup phase to use the correct Node.js version and yarn
 [phases.setup]
     nixPkgs = [
-        "nodejs_23"  # specify Node.js 23.x package from nixpkgs
+        "nodejs_23",  # specify Node.js 23.x package from nixpkgs
+        "yarn"        # ensure yarn is installed
     ]
 
 # download caddy from nix
@@ -23,8 +24,14 @@
     dependsOn = ['caddy'] # make sure this phase runs after the 'caddy' phase so that we know we have caddy downloaded
     cmds = ['caddy fmt --overwrite Caddyfile'] # format the Caddyfile to fix any formatting inconsistencies
 
+# add an explicit install phase
+[phases.install]
+    dependsOn = ['setup'] # make sure this phase runs after the setup phase
+    cmds = ["yarn install --frozen-lockfile"] # install dependencies with yarn
+
 # add a build phase
 [phases.build]
+    dependsOn = ['install'] # make sure this phase runs after the install phase
     cmds = ["yarn build"]
 
 # start the caddy web server
